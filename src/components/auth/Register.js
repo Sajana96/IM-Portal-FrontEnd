@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
+import AlertShow from '../layout/AlertShow'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -15,12 +16,6 @@ const Register = () => {
     message: ''
   })
 
-  const AlertShow = () => {
-    if (alert.show) {
-      return <div className={`alert alert-${alert.type}`}>{alert.message}</div>
-    } else return <div></div>
-  }
-
   const { name, email, password, password2 } = formData
 
   const onChange = e =>
@@ -34,7 +29,8 @@ const Register = () => {
         type: 'danger',
         message: 'passwords do not match'
       })
-      setTimeout(() => setAlert({ show: false }), 3000)
+
+      setTimeout(() => setAlert({ show: false }), 4000)
       return console.log('Passwords do not Match')
     }
     //setSuccess(true)
@@ -46,12 +42,14 @@ const Register = () => {
       message: 'User Added'
     })
     setTimeout(() => setAlert({ show: false }), 3000)
-    console.log(formData)
+    const user = formData
+    setFormData({ name: '', email: '', password: '', password2: '' })
+    console.log(user)
   }
 
   return (
     <Fragment>
-      <AlertShow />
+      <AlertShow alert={alert} />
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
