@@ -7,7 +7,8 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    category: 'Level 1'
   })
 
   const [alert, setAlert] = useState({
@@ -16,10 +17,47 @@ const Register = () => {
     message: ''
   })
 
-  const { name, email, password, password2 } = formData
+  const { name, email, password, password2, category } = formData
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
+
+  const SelectUser = props => {
+    if (props.userType == 'Student') {
+      return (
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Please enter your Current IM Number'
+            name='confirmtionField'
+            required
+          />
+        </div>
+      )
+    } else if (props.userType == 'Lecturer') {
+      return (
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Please enter your Lecturer Email'
+            name='confirmtionField'
+            required
+          />
+        </div>
+      )
+    } else if (props.userType == 'Past Student') {
+      return (
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Please enter your Past IM Number'
+            name='confirmtionField'
+            required
+          />
+        </div>
+      )
+    } else return <div></div>
+  }
 
   const onSubmit = e => {
     e.preventDefault()
@@ -43,7 +81,13 @@ const Register = () => {
     })
     setTimeout(() => setAlert({ show: false }), 3000)
     const user = formData
-    setFormData({ name: '', email: '', password: '', password2: '' })
+    setFormData({
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      category: 'Student'
+    })
     console.log(user)
   }
 
@@ -80,6 +124,22 @@ const Register = () => {
           </small>
         </div>
         <div className='form-group'>
+          <select
+            name='category'
+            value={category}
+            onChange={e => onChange(e)}
+            required
+          >
+            <option value='level1'>Level 1</option>
+            <option value='level2'>Level 2</option>
+            <option value='level3'>Level 3</option>
+            <option value='level4'>Level 4</option>
+            <option value='Lecturer'>Lecturer</option>
+            <option value='Past Student'>Past Student</option>
+          </select>
+        </div>
+
+        <div className='form-group'>
           <input
             type='password'
             placeholder='Password'
@@ -101,6 +161,9 @@ const Register = () => {
             required
           />
         </div>
+
+        <SelectUser userType={category} />
+
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
