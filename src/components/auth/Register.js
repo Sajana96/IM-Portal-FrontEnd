@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
-import AlertShow from '../layout/AlertShow'
+import axios from 'axios'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,89 +11,44 @@ const Register = () => {
     category: 'Level 1'
   })
 
-  const [alert, setAlert] = useState({
-    show: false,
-    type: '',
-    message: ''
-  })
-
   const { name, email, password, password2, category } = formData
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const SelectUser = props => {
-    if (props.userType == 'Student') {
-      return (
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Please enter your Current IM Number'
-            name='confirmtionField'
-            required
-          />
-        </div>
-      )
-    } else if (props.userType == 'Lecturer') {
-      return (
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Please enter your Lecturer Email'
-            name='confirmtionField'
-            required
-          />
-        </div>
-      )
-    } else if (props.userType == 'Past Student') {
-      return (
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Please enter your Past IM Number'
-            name='confirmtionField'
-            required
-          />
-        </div>
-      )
-    } else return <div></div>
-  }
-
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
     if (password !== password2) {
-      setAlert({
-        show: true,
-        type: 'danger',
-        message: 'passwords do not match'
-      })
-
-      setTimeout(() => setAlert({ show: false }), 4000)
       return console.log('Passwords do not Match')
     }
-    //setSuccess(true)
-
-    //setTimeout(() => setSuccess(false), 5000)
-    setAlert({
-      show: true,
-      type: 'success',
-      message: 'User Added'
-    })
-    setTimeout(() => setAlert({ show: false }), 3000)
-    const user = formData
+    /*
+    const newUser = { name, email, password, category }
     setFormData({
       name: '',
       email: '',
       password: '',
       password2: '',
-      category: 'Student'
+      category: 'Level 1'
     })
-    console.log(user)
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      const body = JSON.stringify(newUser)
+
+      const res = await axios.post('/api/users', body, config)
+      console.log(res.data)
+    } catch (error) {
+      console.error(error.response.data)
+    }*/
+    console.log(formData)
   }
 
   return (
     <Fragment>
-      <AlertShow alert={alert} />
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
@@ -130,10 +85,10 @@ const Register = () => {
             onChange={e => onChange(e)}
             required
           >
-            <option value='level1'>Level 1</option>
-            <option value='level2'>Level 2</option>
-            <option value='level3'>Level 3</option>
-            <option value='level4'>Level 4</option>
+            <option value='level 1'>Level 1</option>
+            <option value='level 2'>Level 2</option>
+            <option value='level 3'>Level 3</option>
+            <option value='level 4'>Level 4</option>
             <option value='Lecturer'>Lecturer</option>
             <option value='Past Student'>Past Student</option>
           </select>
@@ -161,8 +116,6 @@ const Register = () => {
             required
           />
         </div>
-
-        <SelectUser userType={category} />
 
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
