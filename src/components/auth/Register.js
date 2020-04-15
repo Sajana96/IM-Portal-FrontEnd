@@ -49,6 +49,13 @@ const Register = ({ setAlert }) => {
     }*/
     setAlert('User Registered', 'success')
     console.log(formData)
+    setFormData({
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      category: 'Level 1'
+    })
   }
 
   return (
