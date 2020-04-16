@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
 import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
-import axios from 'axios'
 
 const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
@@ -25,30 +24,7 @@ const Register = ({ setAlert, register }) => {
     if (password !== password2) {
       return setAlert('Passwords Do Not Match', 'danger')
     }
-    /*
-    const newUser = { name, email, password, category }
-    setFormData({
-      name: '',
-      email: '',
-      password: '',
-      password2: '',
-      category: 'Level 1'
-    })
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
 
-      const body = JSON.stringify(newUser)
-
-      const res = await axios.post('/api/users', body, config)
-      console.log(res.data)
-    } catch (error) {
-      console.error(error.response.data)
-    }*/
-    //setAlert('User Registered', 'success')
     register({ name, password, email, category })
     console.log(formData)
     setFormData({
