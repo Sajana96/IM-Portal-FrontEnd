@@ -1,7 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,8 +13,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Landing = () => {
+const Landing = ({ auth }) => {
   const classes = useStyles()
+  if (auth.isAuthenticated) {
+    return <Redirect to='/dashboard' />
+  }
+
   return (
     <section className='landing'>
       <div className='dark-overlay'>
@@ -40,4 +46,11 @@ const Landing = () => {
     </section>
   )
 }
-export default Landing
+Landing.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+export default connect(mapStateToProps)(Landing)

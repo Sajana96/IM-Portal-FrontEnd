@@ -24,6 +24,9 @@ const Navbar = ({ auth, logout }) => {
         <Link to='/profiles'>Community</Link>
       </li>
       <li>
+        <Link to='/dashboard'>Dashboard</Link>
+      </li>
+      <li>
         <a onClick={logout} href='#!'>
           <i className='fas fa-sign-out-alt'></i>
           <span className='hide-sm'>Logout</span>
@@ -38,7 +41,10 @@ const Navbar = ({ auth, logout }) => {
       </li>
 
       <li>
-        <Link to='/login'>Discussions</Link>
+        <Link to='/discussions'>Discussions</Link>
+      </li>
+      <li>
+        <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
         <a onClick={logout} href='#!'>
