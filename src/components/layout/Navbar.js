@@ -80,9 +80,7 @@ const Navbar = ({ auth, logout }) => {
           <i className='fas fa fa-graduation-cap'></i> IM Portal
         </Link>
       </h1>
-      <ul>
-        <li>{auth.user ? `${auth.user.name}-${auth.user.category}` : null}</li>
-      </ul>
+
       <Display auth={auth} />
     </nav>
   )
