@@ -7,7 +7,7 @@ export default function(state = initialState, action) {
     case SET_ALERT:
       return [...state, payload]
     case REMOVE_ALERT:
-      return state.filter(alert => alert.id != payload) //in this case only id is sent along in the payload object
+      return state.filter(alert => alert.id !== payload) //in this case only id is sent along in the payload object
     default:
       return state
   }

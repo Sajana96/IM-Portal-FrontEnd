@@ -59,13 +59,13 @@ const Navbar = ({ auth, logout }) => {
       if (
         props.auth.isAuthenticated &&
         props.auth.user &&
-        props.auth.user.category == 'Lecturer'
+        props.auth.user.category === 'Lecturer'
       )
         return <Fragment>{lecturerLinks}</Fragment>
       if (
         props.auth.isAuthenticated &&
         props.auth.user &&
-        props.auth.user.category != 'Lecturer'
+        props.auth.user.category !== 'Lecturer'
       )
         return <Fragment>{studentLinks}</Fragment>
       if (!props.auth.isAuthenticated) return <Fragment>{guestLinks}</Fragment>
