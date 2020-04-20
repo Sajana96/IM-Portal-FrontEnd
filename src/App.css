@@ -171,9 +171,14 @@ img {
 .alert-light {
   background: var(--light-color);
   color: #333;
+  border-radius: 15px;
 }
 
-.btn-dark,
+.btn-dark {
+  background: var(--dark-color);
+  color: #fff;
+  border-radius: 15px;
+}
 .bg-dark,
 .badge-dark,
 .alert-dark {
@@ -195,6 +200,7 @@ img {
 .alert-success {
   background: var(--success-color);
   color: #fff;
+  border-radius: 15px;
 }
 
 .btn-white,
