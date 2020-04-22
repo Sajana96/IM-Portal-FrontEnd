@@ -2,13 +2,14 @@ import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter, Redirect } from 'react-router-dom'
+import Spinner from '../layout/Spinner'
 import { createProfile, getCurrentProfile } from '../../actions/profile'
 
-const CreateProfile = ({
+const EditProfile = ({
   createProfile,
+  getCurrentProfile,
   history,
-  profile: { profile },
-  getCurrentProfile
+  profile: { profile, loading }
 }) => {
   const [formData, setFormData] = useState({
     school: '',
@@ -26,7 +27,22 @@ const CreateProfile = ({
   const [displaySocial, toggleSocial] = useState(false)
   useEffect(() => {
     getCurrentProfile()
-  }, [])
+    setFormData({
+      school: loading || !profile.school ? '' : profile.school,
+      hometown: loading || !profile.hometown ? '' : profile.hometown,
+      path: loading || !profile.path ? '' : profile.path,
+      skills: loading || !profile.skills ? '' : profile.skills.join(','),
+      bio: loading || !profile.bio ? '' : profile.bio,
+      company: loading || !profile.company ? '' : profile.company,
+      githubusername:
+        loading || !profile.githubusername ? '' : profile.githubusername,
+      facebook: loading || !profile.social ? '' : profile.social.facebook,
+      youtube: loading || !profile.social ? '' : profile.social.youtube,
+      linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+      instagram: loading || !profile.social ? '' : profile.social.instagram
+    })
+  }, [loading])
+
   const {
     school,
     hometown,
@@ -47,12 +63,14 @@ const CreateProfile = ({
   const onSubmit = e => {
     e.preventDefault()
     console.log(formData)
-    createProfile(formData, history)
+    createProfile(formData, history, true)
   }
-  if (profile !== null) return <Redirect to='/edit-profile' />
-  return (
+
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
     <Fragment>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='large text-primary'>Edit Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Let's get some information to make your
         profile stand out
@@ -209,12 +227,16 @@ const CreateProfile = ({
   )
 }
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 }
 
-export default connect(state => ({ profile: state.profile }), {
-  createProfile,
-  getCurrentProfile
-})(withRouter(CreateProfile))
+const mapStateToProps = state => ({
+  profile: state.profile
+})
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+)
