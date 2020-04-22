@@ -33,6 +33,9 @@ export const createProfile = (
     if (!edit) {
       history.push('/dashboard')
     }
+    if (edit) {
+      history.push('/dashboard')
+    }
   } catch (err) {
     const errors = err.response.data.errors
 

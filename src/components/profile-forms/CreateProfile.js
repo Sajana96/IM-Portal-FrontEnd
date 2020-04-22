@@ -2,12 +2,13 @@ import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter, Redirect } from 'react-router-dom'
+import Spinner from '../layout/Spinner'
 import { createProfile, getCurrentProfile } from '../../actions/profile'
 
 const CreateProfile = ({
   createProfile,
   history,
-  profile: { profile },
+  profile: { profile, loading },
   getCurrentProfile
 }) => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const CreateProfile = ({
   const [displaySocial, toggleSocial] = useState(false)
   useEffect(() => {
     getCurrentProfile()
-  }, [])
+  }, [loading])
   const {
     school,
     hometown,
@@ -50,7 +51,9 @@ const CreateProfile = ({
     createProfile(formData, history)
   }
   if (profile !== null) return <Redirect to='/edit-profile' />
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <Fragment>
       <h1 className='large text-primary'>Create Your Profile</h1>
       <p className='lead'>

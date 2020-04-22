@@ -65,7 +65,7 @@ const EditProfile = ({
     console.log(formData)
     createProfile(formData, history, true)
   }
-
+  if (profile === null) return <Redirect to='/create-profile' />
   return loading && profile === null ? (
     <Spinner />
   ) : (
