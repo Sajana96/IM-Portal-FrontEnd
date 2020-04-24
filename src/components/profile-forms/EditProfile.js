@@ -16,6 +16,7 @@ const EditProfile = ({
     hometown: '',
     path: '',
     skills: '',
+    interests: '',
     bio: '',
     company: '',
     githubusername: '',
@@ -32,6 +33,8 @@ const EditProfile = ({
       hometown: loading || !profile.hometown ? '' : profile.hometown,
       path: loading || !profile.path ? '' : profile.path,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
+      interests:
+        loading || !profile.interests ? '' : profile.interests.join(','),
       bio: loading || !profile.bio ? '' : profile.bio,
       company: loading || !profile.company ? '' : profile.company,
       githubusername:
@@ -48,6 +51,7 @@ const EditProfile = ({
     hometown,
     path,
     skills,
+    interests,
     bio,
     company,
     githubusername,
@@ -133,6 +137,19 @@ const EditProfile = ({
           />
           <small className='form-text'>
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+          </small>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='* Interests'
+            name='interests'
+            value={interests}
+            onChange={e => onChange(e)}
+          />
+          <small className='form-text'>
+            Please use comma separated values (eg. Programming, Networking, Big
+            Data )
           </small>
         </div>
         <div className='form-group'>

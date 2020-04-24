@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setAlert } from './alert'
-import { GET_PROFILE, PROFILE_ERROR } from './types'
+import { GET_PROFILE, PROFILE_ERROR, EDIT_PROFILE } from './types'
 
 export const getCurrentProfile = () => async dispatch => {
   try {
@@ -27,7 +27,7 @@ export const createProfile = (
     }
 
     const res = await axios.post('/api/profile', formData, config)
-    dispatch({ type: GET_PROFILE, payload: res.data })
+    dispatch({ type: EDIT_PROFILE, payload: res.data })
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
 
     if (!edit) {

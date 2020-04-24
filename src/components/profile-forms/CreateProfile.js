@@ -14,8 +14,9 @@ const CreateProfile = ({
   const [formData, setFormData] = useState({
     school: '',
     hometown: '',
-    path: '',
+    path: 'Management',
     skills: '',
+    interests: '',
     bio: '',
     company: '',
     githubusername: '',
@@ -33,6 +34,7 @@ const CreateProfile = ({
     hometown,
     path,
     skills,
+    interests,
     bio,
     company,
     githubusername,
@@ -118,6 +120,19 @@ const CreateProfile = ({
           />
           <small className='form-text'>
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+          </small>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='* Interests'
+            name='interests'
+            value={interests}
+            onChange={e => onChange(e)}
+          />
+          <small className='form-text'>
+            Please use comma separated values (eg. Programming, Networking, Big
+            Data )
           </small>
         </div>
         <div className='form-group'>
