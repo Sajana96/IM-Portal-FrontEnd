@@ -1,6 +1,11 @@
 import axios from 'axios'
 import { setAlert } from './alert'
-import { GET_PROFILE, PROFILE_ERROR, EDIT_PROFILE } from './types'
+import {
+  GET_PROFILE,
+  PROFILE_ERROR,
+  EDIT_PROFILE,
+  ADD_EXPERIENCE
+} from './types'
 
 export const getCurrentProfile = () => async dispatch => {
   try {
@@ -14,6 +19,7 @@ export const getCurrentProfile = () => async dispatch => {
   }
 }
 
+//Create or Edit Profile
 export const createProfile = (
   formData,
   history,
@@ -30,12 +36,34 @@ export const createProfile = (
     dispatch({ type: EDIT_PROFILE, payload: res.data })
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
 
-    if (!edit) {
-      history.push('/dashboard')
+    history.push('/dashboard')
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
     }
-    if (edit) {
-      history.push('/dashboard')
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.data, status: err.response.status }
+    })
+  }
+}
+
+//Add experience
+export const addExperience = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
+
+    const res = await axios.put('/api/profile/experience', formData, config)
+    dispatch({ type: ADD_EXPERIENCE, payload: res.data })
+    dispatch(setAlert('Experience Added', 'success'))
+
+    history.push('/dashboard')
   } catch (err) {
     const errors = err.response.data.errors
 

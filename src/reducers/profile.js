@@ -2,7 +2,8 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  ADD_EXPERIENCE
 } from '../actions/types'
 
 const initialState = {
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
   switch (type) {
     case GET_PROFILE:
     case EDIT_PROFILE:
+    case ADD_EXPERIENCE:
       return { ...state, loading: false, profile: payload, error: {} }
     case PROFILE_ERROR:
       return { ...state, loading: false, error: payload }
