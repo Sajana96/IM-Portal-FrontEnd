@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { Link } from 'react-router-dom'
 import DashboardActions from './DashboardActions'
+import Experience from './Experience'
 
 const Dashboard = ({
   auth: { user },
@@ -35,6 +36,7 @@ const Dashboard = ({
       ) : (
         <Fragment>
           <DashboardActions />
+          <Experience experience={profile.experience} />
         </Fragment>
       )}
     </Fragment>
