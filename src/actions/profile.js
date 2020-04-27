@@ -4,12 +4,17 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   EDIT_PROFILE,
-  ADD_EXPERIENCE
+  ADD_EXPERIENCE,
+  GET_PROFILES,
+  CLEAR_PROFILE,
+  GET_REPOS
 } from './types'
 
+//Get the Current Profile
 export const getCurrentProfile = () => async dispatch => {
+  //dispatch({ type: CLEAR_PROFILE })
   try {
-    const res = await axios('/api/profile/me')
+    const res = await axios.get('/api/profile/me')
     dispatch({ type: GET_PROFILE, payload: res.data })
   } catch (err) {
     dispatch({
@@ -89,6 +94,48 @@ export const deleteExperience = id => async dispatch => {
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
     }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.data, status: err.response.status }
+    })
+  }
+}
+
+// Get all Profiles
+export const getAllProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE })
+  try {
+    const res = await axios.get('/api/profile')
+    dispatch({ type: GET_PROFILES, payload: res.data })
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.data, status: err.response.status }
+    })
+  }
+}
+
+// Get profile by user id
+export const getOneUserProfile = userId => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE })
+  try {
+    const res = await axios.get(`/api/profile/user/${userId}`)
+    dispatch({ type: GET_PROFILE, payload: res.data })
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.data, status: err.response.status }
+    })
+  }
+}
+
+// Get github repos
+export const getGitHubRepos = userName => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE })
+  try {
+    const res = await axios.get(`/api/profile/github/${userName}`)
+    dispatch({ type: GET_REPOS, payload: res.data })
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.data, status: err.response.status }

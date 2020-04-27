@@ -21,7 +21,7 @@ const AddExperience = ({
   })
   useEffect(() => {
     getCurrentProfile()
-  }, [loading])
+  }, [])
   const { title, description, company, from, to, current } = formData
 
   const onChange = e => {

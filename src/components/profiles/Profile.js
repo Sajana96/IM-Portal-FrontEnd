@@ -1,47 +1,41 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import Spinner from '../layout/Spinner'
+import { getAllProfiles } from '../../actions/profile'
+import ProfileItem from '../profiles/ProfileItem'
 
-const Profile = () => {
-  return (
+const Profile = ({ getAllProfiles, profile: { profiles, loading } }) => {
+  useEffect(() => {
+    getAllProfiles()
+  }, [])
+  return loading ? (
+    <Spinner />
+  ) : (
     <Fragment>
       <h1 className='large text-primary'>Users</h1>
       <p className='lead'>
         <i className='fab fa-connectdevelop'></i> Browse and Connect with Fellow
         Collegues
       </p>
-      <div className='profile bg-light'>
-        <img
-          className='round-img'
-          src='https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d510?s=200'
-          alt=''
-        />
-        <div>
-          <h2>John Doe</h2>
-          <p>Developer at Microsoft</p>
-          <p>Seattle, WA</p>
-          <a href='profile.html' className='btn btn-primary'>
-            View Profile
-          </a>
-        </div>
-
-        <ul>
-          <li className='text-primary'>
-            <i className='fas fa-check'></i> HTML
-          </li>
-          <li className='text-primary'>
-            <i className='fas fa-check'></i> CSS
-          </li>
-          <li className='text-primary'>
-            <i className='fas fa-check'></i> JavaScript
-          </li>
-          <li className='text-primary'>
-            <i className='fas fa-check'></i> Python
-          </li>
-          <li className='text-primary'>
-            <i className='fas fa-check'></i> C#
-          </li>
-        </ul>
+      <div className='profiles'>
+        {profiles.length > 0 ? (
+          profiles.map(profile => (
+            <ProfileItem key={profile._id} profile={profile} />
+          ))
+        ) : (
+          <h4>No profiles...</h4>
+        )}
       </div>
     </Fragment>
   )
 }
-export default Profile
+Profile.propTypes = {
+  getAllProfiles: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  profile: state.profile
+})
+export default connect(mapStateToProps, { getAllProfiles })(Profile)
