@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { setAlert } from './alert'
+import { loadUser } from './auth'
 import {
   GET_PROFILE,
   PROFILE_ERROR,
@@ -140,5 +141,25 @@ export const getGitHubRepos = userName => async dispatch => {
       type: PROFILE_ERROR,
       payload: { msg: err.response.data, status: err.response.status }
     })
+  }
+}
+
+export const addProfilePicture = (profileImage, history) => async dispatch => {
+  try {
+    const fd = new FormData()
+    fd.append('image', profileImage, profileImage.name)
+
+    const res = await axios.post('/api/profile/picture', fd)
+    console.log(res.data)
+    await dispatch(loadUser())
+    dispatch(setAlert('Image Changed', 'success'))
+
+    history.push('/dashboard')
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+    }
   }
 }

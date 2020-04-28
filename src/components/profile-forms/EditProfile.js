@@ -3,11 +3,18 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import Spinner from '../layout/Spinner'
-import { createProfile, getCurrentProfile } from '../../actions/profile'
+import {
+  createProfile,
+  getCurrentProfile,
+  addProfilePicture
+} from '../../actions/profile'
+import { setAlert } from '../../actions/alert'
 
 const EditProfile = ({
   createProfile,
   getCurrentProfile,
+  addProfilePicture,
+  setAlert,
   history,
   profile: { profile, loading }
 }) => {
@@ -26,6 +33,7 @@ const EditProfile = ({
     instagram: ''
   })
   const [displaySocial, toggleSocial] = useState(false)
+  const [profileImage, setProfileImage] = useState(null)
   useEffect(() => {
     getCurrentProfile()
     setFormData({
@@ -240,6 +248,39 @@ const EditProfile = ({
           Go Back
         </Link>
       </form>
+      <h1 className='large text-primary'>Put up a Profile Image</h1>
+      <form className='form'>
+        <div className='form-group'>
+          <input
+            type='file'
+            onChange={e => {
+              setProfileImage(e.target.files[0])
+            }}
+          />
+          <small className='form-text'>Please Select a jpeg or png file</small>
+        </div>
+        <input
+          type='button'
+          className='btn btn-primary my-1'
+          value='Add Image'
+          onClick={e => {
+            e.preventDefault()
+            if (profileImage === null) {
+              return setAlert('No Image', 'danger')
+            }
+            if (
+              !(
+                profileImage.type === 'image/jpeg' ||
+                profileImage.type === 'image/png'
+              )
+            ) {
+              return setAlert('Unsupported Format', 'danger')
+            }
+            console.log(profileImage)
+            addProfilePicture(profileImage, history)
+          }}
+        />
+      </form>
     </Fragment>
   )
 }
@@ -247,6 +288,8 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
+  addProfilePicture: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 }
 
@@ -254,6 +297,9 @@ const mapStateToProps = state => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(EditProfile)
-)
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  addProfilePicture,
+  setAlert
+})(withRouter(EditProfile))
