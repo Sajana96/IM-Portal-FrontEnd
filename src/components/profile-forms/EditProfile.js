@@ -34,6 +34,7 @@ const EditProfile = ({
   })
   const [displaySocial, toggleSocial] = useState(false)
   const [profileImage, setProfileImage] = useState(null)
+  const [pictureLoading, setPictureLoading] = useState(false)
   useEffect(() => {
     getCurrentProfile()
     setFormData({
@@ -248,7 +249,17 @@ const EditProfile = ({
           Go Back
         </Link>
       </form>
+      <hr></hr>
       <h1 className='large text-primary'>Put up a Profile Image</h1>
+      {pictureLoading ? (
+        <h2>
+          Uploading...
+          <Spinner />
+        </h2>
+      ) : (
+        ''
+      )}
+      <h2 className='form-text'>Please Select a jpeg or png file</h2>
       <form className='form'>
         <div className='form-group'>
           <input
@@ -257,13 +268,12 @@ const EditProfile = ({
               setProfileImage(e.target.files[0])
             }}
           />
-          <small className='form-text'>Please Select a jpeg or png file</small>
         </div>
         <input
           type='button'
           className='btn btn-primary my-1'
           value='Add Image'
-          onClick={e => {
+          onClick={async e => {
             e.preventDefault()
             if (profileImage === null) {
               return setAlert('No Image', 'danger')
@@ -276,8 +286,10 @@ const EditProfile = ({
             ) {
               return setAlert('Unsupported Format', 'danger')
             }
+            setPictureLoading(true)
             console.log(profileImage)
-            addProfilePicture(profileImage, history)
+            await addProfilePicture(profileImage, history)
+            setPictureLoading(false)
           }}
         />
       </form>

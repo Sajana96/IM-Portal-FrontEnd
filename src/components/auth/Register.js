@@ -76,10 +76,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={e => onChange(e)}
             required
           >
-            <option value='level 1'>Level 1</option>
-            <option value='level 2'>Level 2</option>
-            <option value='level 3'>Level 3</option>
-            <option value='level 4'>Level 4</option>
+            <option value='Level 1'>Level 1</option>
+            <option value='Level 2'>Level 2</option>
+            <option value='Level 3'>Level 3</option>
+            <option value='Level 4'>Level 4</option>
             <option value='Lecturer'>Lecturer</option>
             <option value='Past Student'>Past Student</option>
           </select>

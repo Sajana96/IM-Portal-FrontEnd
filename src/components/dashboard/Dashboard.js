@@ -24,6 +24,10 @@ const Dashboard = ({
         <i className='fas fa-user'></i> Welcome {user && user.name} -
         {user && user.category}
       </p>
+      <div className='profile'>
+        <img className='round-img' src={user.avatar} alt='' />
+      </div>
+
       {profile === null ? (
         <Fragment>
           <p>
