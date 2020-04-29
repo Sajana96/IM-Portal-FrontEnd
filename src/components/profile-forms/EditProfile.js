@@ -83,6 +83,49 @@ const EditProfile = ({
     <Spinner />
   ) : (
     <Fragment>
+      <h1 className='large text-primary'>Put up a Profile Image</h1>
+      {pictureLoading ? (
+        <h2>
+          Uploading...
+          <Spinner />
+        </h2>
+      ) : (
+        ''
+      )}
+      <h2 className='form-text'>Please Select a jpeg or png file</h2>
+      <form className='form'>
+        <div className='form-group'>
+          <input
+            type='file'
+            onChange={e => {
+              setProfileImage(e.target.files[0])
+            }}
+          />
+        </div>
+        <input
+          type='button'
+          className='btn btn-primary my-1'
+          value='Add Image'
+          onClick={async e => {
+            e.preventDefault()
+            if (profileImage === null) {
+              return setAlert('No Image', 'danger')
+            }
+            if (
+              !(
+                profileImage.type === 'image/jpeg' ||
+                profileImage.type === 'image/png'
+              )
+            ) {
+              return setAlert('Unsupported Format', 'danger')
+            }
+            setPictureLoading(true)
+            console.log(profileImage)
+            await addProfilePicture(profileImage, history)
+            setPictureLoading(false)
+          }}
+        />
+      </form>
       <h1 className='large text-primary'>Edit Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Let's get some information to make your
@@ -250,49 +293,6 @@ const EditProfile = ({
         </Link>
       </form>
       <hr></hr>
-      <h1 className='large text-primary'>Put up a Profile Image</h1>
-      {pictureLoading ? (
-        <h2>
-          Uploading...
-          <Spinner />
-        </h2>
-      ) : (
-        ''
-      )}
-      <h2 className='form-text'>Please Select a jpeg or png file</h2>
-      <form className='form'>
-        <div className='form-group'>
-          <input
-            type='file'
-            onChange={e => {
-              setProfileImage(e.target.files[0])
-            }}
-          />
-        </div>
-        <input
-          type='button'
-          className='btn btn-primary my-1'
-          value='Add Image'
-          onClick={async e => {
-            e.preventDefault()
-            if (profileImage === null) {
-              return setAlert('No Image', 'danger')
-            }
-            if (
-              !(
-                profileImage.type === 'image/jpeg' ||
-                profileImage.type === 'image/png'
-              )
-            ) {
-              return setAlert('Unsupported Format', 'danger')
-            }
-            setPictureLoading(true)
-            console.log(profileImage)
-            await addProfilePicture(profileImage, history)
-            setPictureLoading(false)
-          }}
-        />
-      </form>
     </Fragment>
   )
 }
