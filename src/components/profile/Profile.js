@@ -9,7 +9,7 @@ const Profile = ({
   match,
   auth,
   profile: { profile, loading },
-  getOneUserProfile
+  getOneUserProfile,
 }) => {
   useEffect(() => {
     getOneUserProfile(match.params.id)
@@ -36,11 +36,11 @@ const Profile = ({
 Profile.propTypes = {
   getOneUserProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
 })
 export default connect(mapStateToProps, { getOneUserProfile })(Profile)
