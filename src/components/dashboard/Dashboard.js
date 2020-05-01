@@ -39,7 +39,7 @@ const Dashboard = ({
         </Fragment>
       ) : (
         <Fragment>
-          <DashboardActions />
+          <DashboardActions id={user._id} />
           <Experience experience={profile.experience} />
         </Fragment>
       )}
