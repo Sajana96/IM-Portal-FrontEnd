@@ -9,7 +9,8 @@ const ProfileItem = ({
     path,
     company,
     hometown,
-    skills
+    skills,
+    interests
   }
 }) => {
   return (
@@ -25,15 +26,31 @@ const ProfileItem = ({
             View Profile
           </Link>
         </div>
-
-        <ul>
-          {skills.length > 0 &&
-            skills.slice(0, 4).map((skill, index) => (
-              <li key={index} className='text-primary'>
-                <i className='fas fa-check'></i> {skill}
-              </li>
-            ))}
-        </ul>
+        <div>
+          <div>
+            <h3>Skiils</h3>
+            <ul>
+              {skills.length > 0 &&
+                skills.slice(0, 4).map((skill, index) => (
+                  <li key={index} className='text-primary'>
+                    <i className='fas fa-check'></i> {skill}
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <div>
+            {' '}
+            <h3>Interests</h3>
+            <ul>
+              {interests.length > 0 &&
+                interests.slice(0, 4).map((interest, index) => (
+                  <li key={index} className='text-primary'>
+                    <i className='fas fa-check'></i> {interest}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   )

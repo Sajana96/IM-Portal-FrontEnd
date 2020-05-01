@@ -118,7 +118,7 @@ export const getAllProfiles = () => async dispatch => {
 
 // Get profile by user id
 export const getOneUserProfile = userId => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
+  console.log('this method got executed')
   try {
     const res = await axios.get(`/api/profile/user/${userId}`)
     dispatch({ type: GET_PROFILE, payload: res.data })
@@ -127,6 +127,7 @@ export const getOneUserProfile = userId => async dispatch => {
       type: PROFILE_ERROR,
       payload: { msg: err.response.data, status: err.response.status }
     })
+    dispatch(setAlert(err.response.data.msg, 'danger'))
   }
 }
 
