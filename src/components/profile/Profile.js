@@ -21,13 +21,14 @@ const Profile = ({
       <Link to='/profiles' className='btn btn-light'>
         Back to Profiles
       </Link>
-      {profile.user._id === auth.user._id ? (
+      {auth.user && profile.user._id === auth.user._id ? (
         <Link to='/edit-profile' className='btn btn-dark'>
           Edit Profile
         </Link>
       ) : (
         ''
       )}
+      <h2>{profile && profile.user.name}</h2>
     </Fragment>
   )
 }

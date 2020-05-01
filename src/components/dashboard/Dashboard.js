@@ -25,7 +25,7 @@ const Dashboard = ({
         {user && user.category}
       </p>
       <div className='profile'>
-        <img className='round-img' src={user.avatar} alt='' />
+        <img className='round-img' src={user && user.avatar} alt='' />
       </div>
 
       {profile === null ? (
@@ -39,7 +39,7 @@ const Dashboard = ({
         </Fragment>
       ) : (
         <Fragment>
-          <DashboardActions id={user._id} />
+          <DashboardActions id={user && user._id} />
           <Experience experience={profile.experience} />
         </Fragment>
       )}
