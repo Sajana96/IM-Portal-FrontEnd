@@ -5,7 +5,7 @@ import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-import Profile from './components/profiles/Profile'
+import Profiles from './components/profiles/Profiles'
 import Dashboard from './components/dashboard/Dashboard'
 import CreateProfile from './components/profile-forms/CreateProfile'
 import EditProfile from './components/profile-forms/EditProfile'
@@ -32,12 +32,13 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Route exact path='/' component={Landing} />
+
           <section className='container'>
             <AlertShow />
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
-              <Route exact path='/profiles' component={Profile} />
+              <Route exact path='/profiles' component={Profiles} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
