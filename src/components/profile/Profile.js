@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { getOneUserProfile } from '../../actions/profile'
 import Spinner from '../layout/Spinner'
 import ProfileTop from './ProfileTop'
+import ProfileAbout from './ProfileAbout'
 
 const Profile = ({
   match,
@@ -31,6 +32,7 @@ const Profile = ({
       )}
 
       <ProfileTop profile={profile} />
+      <ProfileAbout profile={profile} />
     </Fragment>
   )
 }
