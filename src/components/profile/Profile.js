@@ -2,8 +2,9 @@ import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getOneUserProfile, getAllProfiles } from '../../actions/profile'
+import { getOneUserProfile } from '../../actions/profile'
 import Spinner from '../layout/Spinner'
+import ProfileTop from './ProfileTop'
 
 const Profile = ({
   match,
@@ -13,7 +14,7 @@ const Profile = ({
 }) => {
   useEffect(() => {
     getOneUserProfile(match.params.id)
-  }, [getAllProfiles])
+  }, [getOneUserProfile, match.params.id])
   return profile === null || loading ? (
     <Spinner />
   ) : (
@@ -28,7 +29,8 @@ const Profile = ({
       ) : (
         ''
       )}
-      <h2>{profile && profile.user.name}</h2>
+
+      <ProfileTop profile={profile} />
     </Fragment>
   )
 }

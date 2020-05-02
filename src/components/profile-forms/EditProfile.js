@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner'
 import {
   createProfile,
   getCurrentProfile,
-  addProfilePicture
+  addProfilePicture,
 } from '../../actions/profile'
 import { setAlert } from '../../actions/alert'
 
@@ -16,7 +16,7 @@ const EditProfile = ({
   addProfilePicture,
   setAlert,
   history,
-  profile: { profile, loading }
+  profile: { profile, loading },
 }) => {
   const [formData, setFormData] = useState({
     school: '',
@@ -30,7 +30,7 @@ const EditProfile = ({
     facebook: '',
     youtube: '',
     linkedin: '',
-    instagram: ''
+    instagram: '',
   })
   const [displaySocial, toggleSocial] = useState(false)
   const [profileImage, setProfileImage] = useState(null)
@@ -51,7 +51,7 @@ const EditProfile = ({
       facebook: loading || !profile.social ? '' : profile.social.facebook,
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       linkedin: loading || !profile.social ? '' : profile.social.linkedin,
-      instagram: loading || !profile.social ? '' : profile.social.instagram
+      instagram: loading || !profile.social ? '' : profile.social.instagram,
     })
   }, [loading])
 
@@ -67,13 +67,13 @@ const EditProfile = ({
     facebook,
     youtube,
     linkedin,
-    instagram
+    instagram,
   } = formData
 
-  const onChange = e =>
+  const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault()
     console.log(formData)
     createProfile(formData, history, true)
@@ -92,12 +92,15 @@ const EditProfile = ({
       ) : (
         ''
       )}
-      <h2 className='form-text'>Please Select a jpeg or png file</h2>
+
+      <p className='lead'>
+        <i className='fas fa-camera'></i> Please Select a jpeg or png file
+      </p>
       <form className='form'>
         <div className='form-group'>
           <input
             type='file'
-            onChange={e => {
+            onChange={(e) => {
               setProfileImage(e.target.files[0])
             }}
           />
@@ -106,7 +109,7 @@ const EditProfile = ({
           type='button'
           className='btn btn-primary my-1'
           value='Add Image'
-          onClick={async e => {
+          onClick={async (e) => {
             e.preventDefault()
             if (profileImage === null) {
               return setAlert('No Image', 'danger')
@@ -133,9 +136,9 @@ const EditProfile = ({
         profile stand out
       </p>
       <small>*required field</small>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
-          <select name='path' onChange={e => onChange(e)}>
+          <select name='path' onChange={(e) => onChange(e)}>
             <option value='Management'>Management</option>
             <option value='Information Technology'>
               Information Technology
@@ -154,7 +157,7 @@ const EditProfile = ({
             placeholder='Company'
             name='company'
             value={company}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             Could be your own company or one you work for
@@ -166,7 +169,7 @@ const EditProfile = ({
             placeholder='School'
             name='school'
             value={school}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>Could be your recent school</small>
         </div>
@@ -176,7 +179,7 @@ const EditProfile = ({
             placeholder='Hometown'
             name='hometown'
             value={hometown}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>City suggested (eg. Moratuwa)</small>
         </div>
@@ -186,7 +189,7 @@ const EditProfile = ({
             placeholder='* Skills'
             name='skills'
             value={skills}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
@@ -198,7 +201,7 @@ const EditProfile = ({
             placeholder='* Interests'
             name='interests'
             value={interests}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             Please use comma separated values (eg. Programming, Networking, Big
@@ -211,7 +214,7 @@ const EditProfile = ({
             placeholder='Github Username'
             name='githubusername'
             value={githubusername}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             If you want your latest repos and a Github link, include your
@@ -223,7 +226,7 @@ const EditProfile = ({
             placeholder='A short bio of yourself'
             name='bio'
             value={bio}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           ></textarea>
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
@@ -247,7 +250,7 @@ const EditProfile = ({
                 placeholder='Facebook URL'
                 name='facebook'
                 value={facebook}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -258,7 +261,7 @@ const EditProfile = ({
                 placeholder='YouTube URL'
                 name='youtube'
                 value={youtube}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -269,7 +272,7 @@ const EditProfile = ({
                 placeholder='Linkedin URL'
                 name='linkedin'
                 value={linkedin}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
 
@@ -280,7 +283,7 @@ const EditProfile = ({
                 placeholder='Instagram URL'
                 name='instagram'
                 value={instagram}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
           </Fragment>
@@ -293,6 +296,7 @@ const EditProfile = ({
           Go Back
         </Link>
       </form>
+
       <hr></hr>
     </Fragment>
   )
@@ -303,16 +307,16 @@ EditProfile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   addProfilePicture: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 })
 
 export default connect(mapStateToProps, {
   createProfile,
   getCurrentProfile,
   addProfilePicture,
-  setAlert
+  setAlert,
 })(withRouter(EditProfile))
