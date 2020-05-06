@@ -8,11 +8,11 @@ import {
   ADD_EXPERIENCE,
   GET_PROFILES,
   CLEAR_PROFILE,
-  GET_REPOS
+  GET_REPOS,
 } from './types'
 
 //Get the Current Profile
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentProfile = () => async (dispatch) => {
   //dispatch({ type: CLEAR_PROFILE })
   try {
     const res = await axios.get('/api/profile/me')
@@ -20,22 +20,20 @@ export const getCurrentProfile = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 
 //Create or Edit Profile
-export const createProfile = (
-  formData,
-  history,
-  edit = false
-) => async dispatch => {
+export const createProfile = (formData, history, edit = false) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const res = await axios.post('/api/profile', formData, config)
@@ -47,22 +45,22 @@ export const createProfile = (
     const errors = err.response.data.errors
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 
 //Add experience
-export const addExperience = (formData, history) => async dispatch => {
+export const addExperience = (formData, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const res = await axios.put('/api/profile/experience', formData, config)
@@ -74,17 +72,17 @@ export const addExperience = (formData, history) => async dispatch => {
     const errors = err.response.data.errors
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 //Delete Experience
 
-export const deleteExperience = id => async dispatch => {
+export const deleteExperience = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/profile/experience/${id}`)
     dispatch({ type: EDIT_PROFILE, payload: res.data })
@@ -93,17 +91,17 @@ export const deleteExperience = id => async dispatch => {
     const errors = err.response.data.errors
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 
 // Get all Profiles
-export const getAllProfiles = () => async dispatch => {
+export const getAllProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE })
   try {
     const res = await axios.get('/api/profile')
@@ -111,13 +109,13 @@ export const getAllProfiles = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 
 // Get profile by user id
-export const getOneUserProfile = userId => async dispatch => {
+export const getOneUserProfile = (userId) => async (dispatch) => {
   console.log('this method got executed')
   try {
     const res = await axios.get(`/api/profile/user/${userId}`)
@@ -125,27 +123,28 @@ export const getOneUserProfile = userId => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
     dispatch(setAlert(err.response.data.msg, 'danger'))
   }
 }
 
 // Get github repos
-export const getGitHubRepos = userName => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
+export const getGitHubRepos = (userName) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/github/${userName}`)
     dispatch({ type: GET_REPOS, payload: res.data })
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.data, status: err.response.status }
+      payload: { msg: err.response.data, status: err.response.status },
     })
   }
 }
 
-export const addProfilePicture = (profileImage, history) => async dispatch => {
+export const addProfilePicture = (profileImage, history) => async (
+  dispatch
+) => {
   try {
     const fd = new FormData()
     fd.append('image', profileImage, profileImage.name)
@@ -160,7 +159,7 @@ export const addProfilePicture = (profileImage, history) => async dispatch => {
     const errors = err.response.data.errors
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
   }
 }

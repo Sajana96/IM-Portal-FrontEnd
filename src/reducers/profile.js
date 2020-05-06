@@ -5,7 +5,7 @@ import {
   EDIT_PROFILE,
   ADD_EXPERIENCE,
   GET_PROFILES,
-  GET_REPOS
+  GET_REPOS,
 } from '../actions/types'
 
 const initialState = {
@@ -13,10 +13,10 @@ const initialState = {
   profiles: [],
   repos: [],
   error: {},
-  loading: true
+  loading: true,
 }
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { payload, type } = action
   switch (type) {
     case GET_PROFILE:
