@@ -52,9 +52,9 @@ const Profile = ({
           <i className='fab fa-github'></i> Github Repos
         </h2>
         {profile.githubusername ? (
-          //<ProfileGithub githubusername={profile.githubusername} />
-          <strong>This is terminated due to headers issue in github api</strong>
+          <ProfileGithub githubusername={profile.githubusername} />
         ) : (
+          //<strong>This is terminated due to headers issue in github api</strong>
           <h3>Please update your github username</h3>
         )}
       </div>
