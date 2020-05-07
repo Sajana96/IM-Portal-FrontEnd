@@ -11,7 +11,7 @@ import {
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
+  repos: null,
   error: {},
   loading: true,
 }
@@ -30,7 +30,13 @@ export default function (state = initialState, action) {
     case PROFILE_ERROR:
       return { ...state, loading: false, error: payload }
     case CLEAR_PROFILE:
-      return { ...state, repos: [], profile: null, loading: true, error: null }
+      return {
+        ...state,
+        repos: null,
+        profile: null,
+        loading: true,
+        error: null,
+      }
     default:
       return state
   }
