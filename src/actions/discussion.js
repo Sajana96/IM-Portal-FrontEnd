@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_DISCUSSIONS, DISCUSSION_ERROR } from './types'
+import { GET_DISCUSSIONS, DISCUSSION_ERROR, CLEAR_DISCUSSION } from './types'
 
 export const getDiscussions = () => async (dispatch) => {
   try {
@@ -11,4 +11,8 @@ export const getDiscussions = () => async (dispatch) => {
       payload: { msg: err.response.data, status: err.response.status },
     })
   }
+}
+
+export const clearDiscussion = () => async (dispatch) => {
+  dispatch({ type: CLEAR_DISCUSSION })
 }

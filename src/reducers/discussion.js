@@ -1,4 +1,8 @@
-import { GET_DISCUSSIONS, DISCUSSION_ERROR } from '../actions/types'
+import {
+  GET_DISCUSSIONS,
+  DISCUSSION_ERROR,
+  CLEAR_DISCUSSION,
+} from '../actions/types'
 
 const initialState = {
   discussions: [],
@@ -14,6 +18,14 @@ export default function (state = initialState, action) {
       return { ...state, discussions: payload, loading: false, error: {} }
     case DISCUSSION_ERROR:
       return { ...state, loading: false, error: payload }
+    case CLEAR_DISCUSSION:
+      return {
+        ...state,
+        discussions: [],
+        discussion: null,
+        loading: true,
+        error: {},
+      }
     default:
       return state
   }

@@ -6,15 +6,16 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
 } from '../actions/types'
 import axios from 'axios'
 import { setAlert } from './alert'
+import { clearDiscussion } from './discussion'
 import setAuthToken from '../utils/setAuthToken'
 import store from '../store'
 
 //Load user
-export const loadUser = () => async dispatch => {
+export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token)
   }
@@ -22,22 +23,22 @@ export const loadUser = () => async dispatch => {
     const res = await axios.get('/api/auth')
     dispatch({
       type: LOAD_USER,
-      payload: res.data
+      payload: res.data,
     })
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR
+      type: AUTH_ERROR,
     })
   }
 }
 
 //Login User
 
-export const login = ({ email, password }) => async dispatch => {
+export const login = ({ email, password }) => async (dispatch) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   }
   const body = JSON.stringify({ email, password })
   try {
@@ -46,8 +47,8 @@ export const login = ({ email, password }) => async dispatch => {
     dispatch({
       type: LOGIN_SUCCESS,
       payload: {
-        token: res.data.token
-      }
+        token: res.data.token,
+      },
     })
     console.log('came before load user')
     await dispatch(loadUser())
@@ -61,25 +62,22 @@ export const login = ({ email, password }) => async dispatch => {
     const errors = err.response.data.errors
     //console.log(errors)
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
     dispatch({
-      type: LOGIN_FAIL
+      type: LOGIN_FAIL,
     })
   }
 }
 
 //Register User
-export const register = ({
-  name,
-  email,
-  password,
-  category
-}) => async dispatch => {
+export const register = ({ name, email, password, category }) => async (
+  dispatch
+) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   }
   const body = JSON.stringify({ name, email, password, category })
   try {
@@ -88,8 +86,8 @@ export const register = ({
     dispatch({
       type: REGISTER_SUCCESS,
       payload: {
-        token: res.data.token
-      }
+        token: res.data.token,
+      },
     })
     dispatch(loadUser())
     dispatch(setAlert('User Registered', 'success'))
@@ -97,18 +95,19 @@ export const register = ({
     const errors = err.response.data.errors
     console.log(errors)
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
     dispatch({
-      type: REGISTER_FAIL
+      type: REGISTER_FAIL,
     })
   }
 }
 
 //Logout User
-export const logout = () => async dispatch => {
+export const logout = () => async (dispatch) => {
+  dispatch(clearDiscussion())
   dispatch({ type: CLEAR_PROFILE })
   dispatch({
-    type: LOGOUT
+    type: LOGOUT,
   })
 }
