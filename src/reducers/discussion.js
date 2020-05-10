@@ -2,6 +2,7 @@ import {
   GET_DISCUSSIONS,
   DISCUSSION_ERROR,
   CLEAR_DISCUSSION,
+  UPDATE_LIKES,
 } from '../actions/types'
 
 const initialState = {
@@ -26,6 +27,17 @@ export default function (state = initialState, action) {
         loading: true,
         error: {},
       }
+    case UPDATE_LIKES: {
+      return {
+        ...state,
+        discussions: state.discussions.map((discussion) =>
+          discussion._id === payload.id
+            ? { ...discussion, likes: payload.likes }
+            : discussion
+        ),
+        loading: false,
+      }
+    }
     default:
       return state
   }
