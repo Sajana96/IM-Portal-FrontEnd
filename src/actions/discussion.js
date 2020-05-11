@@ -6,6 +6,7 @@ import {
   UPDATE_LIKES,
   DELETE_DISCUSSION,
 } from './types'
+import { setAlert } from './alert'
 
 //Get all discussions
 export const getDiscussions = () => async (dispatch) => {
@@ -60,6 +61,7 @@ export const deleteDiscussion = (discussionId) => async (dispatch) => {
       type: DELETE_DISCUSSION,
       payload: { id: discussionId },
     })
+    dispatch(setAlert(res.data.msg, 'danger'))
   } catch (err) {
     dispatch({
       type: DISCUSSION_ERROR,
