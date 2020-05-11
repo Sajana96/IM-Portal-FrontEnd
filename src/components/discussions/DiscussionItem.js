@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { connect } from 'react-redux'
-import { addLike, removeLike } from '../../actions/discussion'
+import { addLike, removeLike, deleteDiscussion } from '../../actions/discussion'
 
 const DiscussionItem = ({
   discussion: { user, content, addedDate, comments, likes, area, _id },
   auth,
   addLike,
   removeLike,
+  deleteDiscussion,
 }) => {
   return (
     <div className='post bg-white p-1 my-1'>
@@ -47,7 +48,11 @@ const DiscussionItem = ({
           )}
         </a>
         {auth && auth.user._id === user._id && (
-          <button type='button' className='btn btn-danger'>
+          <button
+            onClick={(e) => deleteDiscussion(_id)}
+            type='button'
+            className='btn btn-danger'
+          >
             <i className='fas fa-times'></i>
           </button>
         )}
@@ -61,9 +66,14 @@ DiscussionItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
+  deleteDiscussion: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 })
-export default connect(mapStateToProps, { addLike, removeLike })(DiscussionItem)
+export default connect(mapStateToProps, {
+  addLike,
+  removeLike,
+  deleteDiscussion,
+})(DiscussionItem)

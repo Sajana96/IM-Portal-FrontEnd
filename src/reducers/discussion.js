@@ -3,6 +3,7 @@ import {
   DISCUSSION_ERROR,
   CLEAR_DISCUSSION,
   UPDATE_LIKES,
+  DELETE_DISCUSSION,
 } from '../actions/types'
 
 const initialState = {
@@ -34,6 +35,15 @@ export default function (state = initialState, action) {
           discussion._id === payload.id
             ? { ...discussion, likes: payload.likes }
             : discussion
+        ),
+        loading: false,
+      }
+    }
+    case DELETE_DISCUSSION: {
+      return {
+        ...state,
+        discussions: state.discussions.filter(
+          (discussion) => discussion._id !== payload.id
         ),
         loading: false,
       }
