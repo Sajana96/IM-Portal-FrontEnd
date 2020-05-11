@@ -4,6 +4,7 @@ import {
   CLEAR_DISCUSSION,
   UPDATE_LIKES,
   DELETE_DISCUSSION,
+  ADD_DISCUSSION,
 } from '../actions/types'
 
 const initialState = {
@@ -45,6 +46,13 @@ export default function (state = initialState, action) {
         discussions: state.discussions.filter(
           (discussion) => discussion._id !== payload.id
         ),
+        loading: false,
+      }
+    }
+    case ADD_DISCUSSION: {
+      return {
+        ...state,
+        discussions: [payload, ...state.discussions],
         loading: false,
       }
     }

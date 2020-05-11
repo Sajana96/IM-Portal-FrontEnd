@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import DiscussionItem from './DiscussionItem'
+import DiscussionForm from './DiscussionForm'
 import { getDiscussions, clearDiscussion } from '../../actions/discussion'
 import { Redirect } from 'react-router-dom'
 
@@ -26,7 +27,7 @@ const Discussions = ({
       <p className='lead'>
         <i className='fas fa-question-circle'></i> Ask any question!
       </p>
-      {/*Post form*/}
+      <DiscussionForm user={user} />
       <div className='posts'>
         {discussions.length > 0 ? (
           discussions.map((discussion) => (

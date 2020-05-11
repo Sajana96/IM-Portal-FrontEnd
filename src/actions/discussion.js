@@ -5,6 +5,7 @@ import {
   CLEAR_DISCUSSION,
   UPDATE_LIKES,
   DELETE_DISCUSSION,
+  ADD_DISCUSSION,
 } from './types'
 import { setAlert } from './alert'
 
@@ -63,6 +64,31 @@ export const deleteDiscussion = (discussionId) => async (dispatch) => {
     })
     dispatch(setAlert(res.data.msg, 'danger'))
   } catch (err) {
+    dispatch({
+      type: DISCUSSION_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+//Add Discussion
+export const addDiscussion = (formData, user) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const res = await axios.post('/api/discussion', formData, config)
+    const discussion = { ...res.data, user }
+    dispatch({ type: ADD_DISCUSSION, payload: discussion })
+
+    dispatch(setAlert('Discussion Published', 'success'))
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
+    }
     dispatch({
       type: DISCUSSION_ERROR,
       payload: { msg: err.response.data, status: err.response.status },
