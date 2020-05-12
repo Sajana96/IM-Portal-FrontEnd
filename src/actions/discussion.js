@@ -6,6 +6,7 @@ import {
   UPDATE_LIKES,
   DELETE_DISCUSSION,
   ADD_DISCUSSION,
+  SEARCH_DISCUSSION,
 } from './types'
 import { setAlert } from './alert'
 
@@ -94,4 +95,9 @@ export const addDiscussion = (formData, user) => async (dispatch) => {
       payload: { msg: err.response.data, status: err.response.status },
     })
   }
+}
+
+//Search Discussion
+export const searchDiscussion = (query) => (dispatch) => {
+  dispatch({ type: SEARCH_DISCUSSION, payload: query.toLowerCase() })
 }

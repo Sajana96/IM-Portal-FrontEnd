@@ -21,9 +21,9 @@ const DiscussionForm = ({ addDiscussion, user }) => {
     setFormData({ area: '', content: '' })
   }
   return (
-    <div className='post-form'>
+    <div className='post-form' style={{ backgroundColor: '#c0e3f0' }}>
       <div className='bg-primary p'>
-        <h3>Say Something...</h3>
+        <h3>Ask Something...</h3>
       </div>
       <form className='form my-1' onSubmit={(e) => onSubmit(e)}>
         <small>

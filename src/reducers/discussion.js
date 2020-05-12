@@ -5,6 +5,7 @@ import {
   UPDATE_LIKES,
   DELETE_DISCUSSION,
   ADD_DISCUSSION,
+  SEARCH_DISCUSSION,
 } from '../actions/types'
 
 const initialState = {
@@ -53,6 +54,18 @@ export default function (state = initialState, action) {
       return {
         ...state,
         discussions: [payload, ...state.discussions],
+        loading: false,
+      }
+    }
+    case SEARCH_DISCUSSION: {
+      const filterDiscussions = state.discussions
+      return {
+        ...state,
+        discussions: filterDiscussions.filter(
+          (discussion) =>
+            discussion.content.toLowerCase().includes(payload) ||
+            discussion.area.toLowerCase().includes(payload)
+        ),
         loading: false,
       }
     }
