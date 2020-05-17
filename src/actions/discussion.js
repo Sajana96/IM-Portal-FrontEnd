@@ -7,6 +7,7 @@ import {
   DELETE_DISCUSSION,
   ADD_DISCUSSION,
   SEARCH_DISCUSSION,
+  GET_DISCUSSION,
 } from './types'
 import { setAlert } from './alert'
 
@@ -100,4 +101,17 @@ export const addDiscussion = (formData, user) => async (dispatch) => {
 //Search Discussion
 export const searchDiscussion = (query) => (dispatch) => {
   dispatch({ type: SEARCH_DISCUSSION, payload: query.toLowerCase() })
+}
+
+//Get one discussion by id
+export const getDiscussion = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/discussion/${id}`)
+    dispatch({ type: GET_DISCUSSION, payload: res.data })
+  } catch (err) {
+    dispatch({
+      type: DISCUSSION_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
 }

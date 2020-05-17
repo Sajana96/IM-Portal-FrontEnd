@@ -12,6 +12,7 @@ import CreateProfile from './components/profile-forms/CreateProfile'
 import EditProfile from './components/profile-forms/EditProfile'
 import AddExperience from './components/profile-forms/AddExperience'
 import Discussions from './components/discussions/Discussions'
+import Discussion from './components/discussion/Discussion'
 import PrivateRoute from './components/routing/PrivateRoute'
 import AlertShow from './components/layout/AlertShow'
 import setAuthToken from './utils/setAuthToken'
@@ -59,6 +60,11 @@ const App = () => {
                 component={AddExperience}
               />
               <PrivateRoute exact path='/discussions' component={Discussions} />
+              <PrivateRoute
+                exact
+                path='/discussion/:id'
+                component={Discussion}
+              />
             </Switch>
           </section>
         </Fragment>

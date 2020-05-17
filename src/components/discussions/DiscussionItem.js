@@ -41,12 +41,12 @@ const DiscussionItem = ({
         >
           <i className='fas fa-thumbs-down'></i>
         </button>
-        <a href='post.html' className='btn btn-primary'>
+        <Link to={`/discussion/${_id}`} className='btn btn-primary'>
           Discussion{' '}
           {comments.length > 0 && (
             <span className='comment-count'>{comments.length}</span>
           )}
-        </a>
+        </Link>
         {auth && auth.user._id === user._id && (
           <button
             onClick={(e) => deleteDiscussion(_id)}

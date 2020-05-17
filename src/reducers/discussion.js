@@ -6,6 +6,7 @@ import {
   DELETE_DISCUSSION,
   ADD_DISCUSSION,
   SEARCH_DISCUSSION,
+  GET_DISCUSSION,
 } from '../actions/types'
 
 const initialState = {
@@ -68,6 +69,9 @@ export default function (state = initialState, action) {
         ),
         loading: false,
       }
+    }
+    case GET_DISCUSSION: {
+      return { ...state, discussion: payload, loading: false }
     }
     default:
       return state
