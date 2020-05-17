@@ -22,7 +22,7 @@ const Discussion = ({
     <Spinner />
   ) : (
     <div>
-      <Link to='/discussions' class='btn'>
+      <Link to='/discussions' className='btn'>
         Back To Discussions
       </Link>
       <DiscussionBody discussion={discussion} />
