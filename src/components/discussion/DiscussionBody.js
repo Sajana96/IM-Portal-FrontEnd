@@ -6,13 +6,15 @@ const DiscussionBody = ({
   discussion: { content, user, area, comments, likes },
 }) => {
   return (
-    <div className='post bg-white p-1 my-1'>
+    <div className='post bg-white p-1 my-1' style={{ border: '3px solid' }}>
       <div>
+        <h2>Question</h2>
         <Link to={`/profile/${user._id}`}>
           <img className='round-img' src={user.avatar} alt='' />
           <h4>{user.name}</h4>
         </Link>
       </div>
+
       <div>
         <strong>Category: {area}</strong>
         <p className='my-1'>{content}</p>

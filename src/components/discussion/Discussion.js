@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import DiscussionBody from './DiscussionBody'
+import CommentItem from './CommentItem'
 import { Redirect, Link } from 'react-router-dom'
 import { getDiscussion } from '../../actions/discussion'
 
@@ -26,6 +27,16 @@ const Discussion = ({
         Back To Discussions
       </Link>
       <DiscussionBody discussion={discussion} />
+      {discussion && discussion.comments.length > 0 ? (
+        <div className='comments'>
+          {discussion &&
+            discussion.comments.map((comment) => (
+              <CommentItem comment={comment} />
+            ))}
+        </div>
+      ) : (
+        <Fragment>No Comments</Fragment>
+      )}
     </div>
   )
 }

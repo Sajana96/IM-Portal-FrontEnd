@@ -7,6 +7,7 @@ import {
   ADD_DISCUSSION,
   SEARCH_DISCUSSION,
   GET_DISCUSSION,
+  CLEAR_SINGLE_DISCUSSION,
 } from '../actions/types'
 
 const initialState = {
@@ -72,6 +73,9 @@ export default function (state = initialState, action) {
     }
     case GET_DISCUSSION: {
       return { ...state, discussion: payload, loading: false }
+    }
+    case CLEAR_SINGLE_DISCUSSION: {
+      return { ...state, loading: true, discussion: null }
     }
     default:
       return state

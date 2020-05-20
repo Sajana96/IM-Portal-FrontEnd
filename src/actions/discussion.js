@@ -8,6 +8,7 @@ import {
   ADD_DISCUSSION,
   SEARCH_DISCUSSION,
   GET_DISCUSSION,
+  CLEAR_SINGLE_DISCUSSION,
 } from './types'
 import { setAlert } from './alert'
 
@@ -27,6 +28,11 @@ export const getDiscussions = () => async (dispatch) => {
 //Clear discussion
 export const clearDiscussion = () => async (dispatch) => {
   dispatch({ type: CLEAR_DISCUSSION })
+}
+
+//Clear one discussion
+export const clearSingleDiscussion = () => async (dispatch) => {
+  dispatch({ type: CLEAR_SINGLE_DISCUSSION })
 }
 
 //Add like
@@ -105,6 +111,7 @@ export const searchDiscussion = (query) => (dispatch) => {
 
 //Get one discussion by id
 export const getDiscussion = (id) => async (dispatch) => {
+  await dispatch(clearSingleDiscussion())
   try {
     const res = await axios.get(`/api/discussion/${id}`)
     dispatch({ type: GET_DISCUSSION, payload: res.data })
