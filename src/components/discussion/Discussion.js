@@ -31,7 +31,11 @@ const Discussion = ({
         <div className='comments'>
           {discussion &&
             discussion.comments.map((comment) => (
-              <CommentItem comment={comment} />
+              <CommentItem
+                comment={comment}
+                discussionId={discussion._id}
+                owner={discussion.user._id}
+              />
             ))}
         </div>
       ) : (

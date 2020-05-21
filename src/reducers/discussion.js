@@ -8,6 +8,7 @@ import {
   SEARCH_DISCUSSION,
   GET_DISCUSSION,
   CLEAR_SINGLE_DISCUSSION,
+  LIKE_COMMENT,
 } from '../actions/types'
 
 const initialState = {
@@ -76,6 +77,12 @@ export default function (state = initialState, action) {
     }
     case CLEAR_SINGLE_DISCUSSION: {
       return { ...state, loading: true, discussion: null }
+    }
+    case LIKE_COMMENT: {
+      return {
+        ...state,
+        discussion: { ...state.discussion, comments: payload.comments },
+      }
     }
     default:
       return state

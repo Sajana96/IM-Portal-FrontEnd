@@ -9,6 +9,7 @@ import {
   SEARCH_DISCUSSION,
   GET_DISCUSSION,
   CLEAR_SINGLE_DISCUSSION,
+  LIKE_COMMENT,
 } from './types'
 import { setAlert } from './alert'
 
@@ -115,6 +116,24 @@ export const getDiscussion = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/discussion/${id}`)
     dispatch({ type: GET_DISCUSSION, payload: res.data })
+  } catch (err) {
+    dispatch({
+      type: DISCUSSION_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+
+//adding like to comment
+export const markComment = (postId, commentId) => async (dispatch) => {
+  try {
+    const res = await axios.put(
+      `/api/discussion/comment/${postId}/${commentId}`
+    )
+    dispatch({
+      type: LIKE_COMMENT,
+      payload: { id: postId, comments: res.data },
+    })
   } catch (err) {
     dispatch({
       type: DISCUSSION_ERROR,
