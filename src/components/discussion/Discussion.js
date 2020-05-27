@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import DiscussionBody from './DiscussionBody'
 import CommentItem from './CommentItem'
+import CommentForm from './CommentForm'
 import { Redirect, Link } from 'react-router-dom'
 import { getDiscussion } from '../../actions/discussion'
 
@@ -27,11 +28,13 @@ const Discussion = ({
         Back To Discussions
       </Link>
       <DiscussionBody discussion={discussion} />
+      <CommentForm discussionId={discussion._id} />
       {discussion && discussion.comments.length > 0 ? (
         <div className='comments'>
           {discussion &&
             discussion.comments.map((comment) => (
               <CommentItem
+                key={comment._id}
                 comment={comment}
                 discussionId={discussion._id}
                 owner={discussion.user._id}

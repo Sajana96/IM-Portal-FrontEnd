@@ -10,6 +10,7 @@ import {
   GET_DISCUSSION,
   CLEAR_SINGLE_DISCUSSION,
   LIKE_COMMENT,
+  ADD_COMMENT,
 } from './types'
 import { setAlert } from './alert'
 
@@ -135,6 +136,36 @@ export const markComment = (postId, commentId) => async (dispatch) => {
       payload: { id: postId, comments: res.data },
     })
   } catch (err) {
+    dispatch({
+      type: DISCUSSION_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+
+//Add Comment to a Discussion
+export const addComment = (formData, postId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const res = await axios.post(
+      `/api/discussion/comment/${postId}`,
+      formData,
+      config
+    )
+
+    dispatch({ type: ADD_COMMENT, payload: { comments: res.data } })
+
+    dispatch(setAlert('Comment Added', 'success'))
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
+    }
     dispatch({
       type: DISCUSSION_ERROR,
       payload: { msg: err.response.data, status: err.response.status },
