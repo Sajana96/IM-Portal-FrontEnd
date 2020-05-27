@@ -11,6 +11,7 @@ import {
   CLEAR_SINGLE_DISCUSSION,
   LIKE_COMMENT,
   ADD_COMMENT,
+  DELETE_COMMENT,
 } from './types'
 import { setAlert } from './alert'
 
@@ -166,6 +167,28 @@ export const addComment = (formData, postId) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
+    dispatch({
+      type: DISCUSSION_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+
+//Delete comment
+export const deleteComment = (discussionId, commentId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(
+      `/api/discussion/comment/${discussionId}/${commentId}`
+    )
+    console.log(res)
+    if (res.status === 200) {
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: { id: commentId },
+      })
+      dispatch(setAlert('Comment Deleted', 'danger'))
+    }
+  } catch (err) {
     dispatch({
       type: DISCUSSION_ERROR,
       payload: { msg: err.response.data, status: err.response.status },

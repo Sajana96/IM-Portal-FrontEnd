@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { connect } from 'react-redux'
-import { markComment } from '../../actions/discussion'
+import { markComment, deleteComment } from '../../actions/discussion'
 
 const CommentItem = ({
   comment: { date, _id, text, user, selected },
@@ -11,6 +11,7 @@ const CommentItem = ({
   markComment,
   discussionId,
   owner,
+  deleteComment,
 }) => {
   return (
     <div className='post bg-white p-1 my-1'>
@@ -55,7 +56,11 @@ const CommentItem = ({
           Posted on {<Moment format='MMM Do YYYY'>{date}</Moment>}
         </p>
         {auth && auth.user._id === user._id && (
-          <button type='button' className='btn btn-danger'>
+          <button
+            type='button'
+            className='btn btn-danger'
+            onClick={(e) => deleteComment(discussionId, _id)}
+          >
             <i className='fas fa-times'></i>
           </button>
         )}
@@ -70,8 +75,11 @@ CommentItem.propTypes = {
   markComment: PropTypes.func.isRequired,
   discussionId: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
+  deleteComment: PropTypes.func.isRequired,
 }
 const mapStateToProps = (state) => ({
   auth: state.auth,
 })
-export default connect(mapStateToProps, { markComment })(CommentItem)
+export default connect(mapStateToProps, { markComment, deleteComment })(
+  CommentItem
+)

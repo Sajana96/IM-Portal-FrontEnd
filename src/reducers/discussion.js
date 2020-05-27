@@ -10,6 +10,7 @@ import {
   CLEAR_SINGLE_DISCUSSION,
   LIKE_COMMENT,
   ADD_COMMENT,
+  DELETE_COMMENT,
 } from '../actions/types'
 
 const initialState = {
@@ -89,6 +90,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         discussion: { ...state.discussion, comments: payload.comments },
+      }
+    }
+    case DELETE_COMMENT: {
+      return {
+        ...state,
+        discussion: {
+          ...state.discussion,
+          comments: state.discussion.comments.filter(
+            (comment) => comment._id !== payload.id
+          ),
+        },
       }
     }
     default:
