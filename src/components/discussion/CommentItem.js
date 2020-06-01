@@ -18,7 +18,7 @@ const CommentItem = ({
       <div>
         {selected ? (
           <strong>
-            Selected by Publisher <i className='fas fa-star'></i>
+            Selected by Publisher
             {auth && auth.user._id === owner && (
               <small
                 onClick={(e) => markComment(discussionId, _id)}

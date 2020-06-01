@@ -44,6 +44,9 @@ const Navbar = ({ auth, logout }) => {
         <Link to='/discussions'>Discussions</Link>
       </li>
       <li>
+        <Link to='/posts'>Blog</Link>
+      </li>
+      <li>
         <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
@@ -54,7 +57,7 @@ const Navbar = ({ auth, logout }) => {
       </li>
     </ul>
   )
-  const Display = props => {
+  const Display = (props) => {
     if (!props.auth.loading) {
       if (
         props.auth.isAuthenticated &&
@@ -87,9 +90,9 @@ const Navbar = ({ auth, logout }) => {
 }
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
 }
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 })
 export default connect(mapStateToProps, { logout })(Navbar)

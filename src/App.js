@@ -13,6 +13,7 @@ import EditProfile from './components/profile-forms/EditProfile'
 import AddExperience from './components/profile-forms/AddExperience'
 import Discussions from './components/discussions/Discussions'
 import Discussion from './components/discussion/Discussion'
+import Posts from './components/posts/Posts'
 import PrivateRoute from './components/routing/PrivateRoute'
 import AlertShow from './components/layout/AlertShow'
 import setAuthToken from './utils/setAuthToken'
@@ -65,6 +66,7 @@ const App = () => {
                 path='/discussion/:id'
                 component={Discussion}
               />
+              <PrivateRoute exact path='/posts' component={Posts} />
             </Switch>
           </section>
         </Fragment>
