@@ -9,7 +9,7 @@ const AddExperience = ({
   addExperience,
   getCurrentProfile,
   history,
-  profile: { profile, loading }
+  profile: { profile, loading },
 }) => {
   const [formData, setFormData] = useState({
     title: '',
@@ -17,18 +17,18 @@ const AddExperience = ({
     company: '',
     from: '',
     to: '',
-    current: false
+    current: false,
   })
   useEffect(() => {
     getCurrentProfile()
   }, [])
   const { title, description, company, from, to, current } = formData
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault()
     console.log(formData)
     addExperience(formData, history)
@@ -45,25 +45,25 @@ const AddExperience = ({
       </p>
 
       <small>* = required field</small>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Job Title'
+            placeholder='* Title'
             name='title'
             required
             value={title}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Company'
+            placeholder='* Company/Institute'
             name='company'
             required
             value={company}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
 
@@ -73,7 +73,7 @@ const AddExperience = ({
             type='date'
             name='from'
             value={from}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -83,7 +83,7 @@ const AddExperience = ({
               name='current'
               value={current}
               checked={current}
-              onChange={e => {
+              onChange={(e) => {
                 setFormData({ ...formData, current: !current })
               }}
             />{' '}
@@ -96,7 +96,7 @@ const AddExperience = ({
             type='date'
             name='to'
             value={to}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
             disabled={current === true ? 'disabled' : ''}
           />
         </div>
@@ -105,9 +105,9 @@ const AddExperience = ({
             name='description'
             cols='30'
             rows='5'
-            placeholder='Job Description'
+            placeholder='Description'
             value={description}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           ></textarea>
         </div>
         <input type='submit' className='btn btn-primary my-1' />
@@ -121,10 +121,10 @@ const AddExperience = ({
 
 AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 }
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 })
 
 export default connect(mapStateToProps, { addExperience, getCurrentProfile })(

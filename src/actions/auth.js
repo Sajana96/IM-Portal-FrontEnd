@@ -53,9 +53,9 @@ export const login = ({ email, password }) => async (dispatch) => {
     console.log('came before load user')
     await dispatch(loadUser())
 
-    const appState = store.getState()
-    console.log(appState)
-    dispatch(setAlert(`Welcome ${appState.auth.user.name}`, 'primary'))
+    //const appState = store.getState()
+    //console.log(appState)
+    //dispatch(setAlert(`Welcome ${appState.auth.user.name}`, 'primary'))
   } catch (err) {
     console.log('catch is running')
     console.log(err)
