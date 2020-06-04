@@ -1,4 +1,9 @@
-import { GET_POSTS, GET_POST, POST_ERROR } from '../actions/types'
+import {
+  GET_POSTS,
+  GET_POST,
+  POST_ERROR,
+  CLEAR_SINGLE_POST,
+} from '../actions/types'
 
 const initialState = {
   post: null,
@@ -21,6 +26,9 @@ export default function (state = initialState, action) {
 
     case POST_ERROR: {
       return { ...state, loading: false, error: payload }
+    }
+    case CLEAR_SINGLE_POST: {
+      return { ...state, loading: true, post: null }
     }
     default:
       return state

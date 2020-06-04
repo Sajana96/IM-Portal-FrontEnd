@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import Moment from 'react-moment'
 
-const PostItem = ({ post: { heading, subheading, user }, loggedUser }) => {
+const PostItem = ({
+  post: { heading, subheading, user, _id, addedDate },
+  loggedUser,
+}) => {
   return (
     <div className='post bg-white p-1 my-1'>
       <div>
@@ -15,9 +19,11 @@ const PostItem = ({ post: { heading, subheading, user }, loggedUser }) => {
         <h2>{heading}</h2>
         <h3>{subheading}</h3>
         <p className='my-1'>Read more............</p>
-        <p className='post-date'>Posted on 04/16/2019</p>
+        <p className='post-date'>
+          Posted on <Moment format='MMM Do YYYY'>{addedDate}</Moment>
+        </p>
 
-        <Link to={`/post`} className='btn btn-dark'>
+        <Link to={`/post/${_id}`} className='btn btn-dark'>
           Read More...
         </Link>
         {user && user._id === loggedUser._id && (
