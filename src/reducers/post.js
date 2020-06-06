@@ -3,6 +3,7 @@ import {
   GET_POST,
   POST_ERROR,
   CLEAR_SINGLE_POST,
+  ADD_POST,
 } from '../actions/types'
 
 const initialState = {
@@ -29,6 +30,9 @@ export default function (state = initialState, action) {
     }
     case CLEAR_SINGLE_POST: {
       return { ...state, loading: true, post: null }
+    }
+    case ADD_POST: {
+      return { ...state, loading: true }
     }
     default:
       return state
