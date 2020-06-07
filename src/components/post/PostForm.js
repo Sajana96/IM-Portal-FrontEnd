@@ -1,8 +1,12 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner'
+import { connect } from 'react-redux'
+import { setAlert } from '../../actions/alert'
+import { addPost } from '../../actions/post'
+import { withRouter } from 'react-router-dom'
 
-const PostForm = (props) => {
+const PostForm = ({ addPost, setAlert, history }) => {
   const [formData, setFormData] = useState({
     heading: '',
     subheading: '',
@@ -15,24 +19,32 @@ const PostForm = (props) => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if (image === null) {
-      return console.log('No Image')
+      return setAlert('No Image', 'danger')
     }
     if (!(image.type === 'image/jpeg' || image.type === 'image/png')) {
-      return console.log('Unsupported Format')
+      return setAlert('Unsupported image format', 'danger')
     }
     console.log(image)
     console.log(formData)
+    setLoading(true)
+    await addPost(formData, image, history)
   }
 
-  return (
+  return loading ? (
+    <div>
+      <h2>Posting...</h2>
+      <Spinner />
+    </div>
+  ) : (
     <Fragment>
       <h1 className='large text-primary'>Add Post</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Publish a blog post here
       </p>
+
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
@@ -80,6 +92,9 @@ const PostForm = (props) => {
   )
 }
 
-PostForm.propTypes = {}
+PostForm.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired,
+}
 
-export default PostForm
+export default connect(null, { setAlert, addPost })(withRouter(PostForm))

@@ -5,6 +5,7 @@ import {
   POST_ERROR,
   CLEAR_SINGLE_POST,
   ADD_POST,
+  DELETE_POST,
 } from './types'
 import { setAlert } from './alert'
 
@@ -65,6 +66,21 @@ export const addPost = (formData, image, history) => async (dispatch) => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+
+export const deletePost = (postId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/post/${postId}`)
+    console.log(res.data.msg)
+    dispatch({ type: DELETE_POST, payload: postId })
+    dispatch(setAlert('Post Deleted', 'danger'))
+  } catch (err) {
+    console.log('catch is running')
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.data.msg, status: err.response.status },
     })
   }
 }

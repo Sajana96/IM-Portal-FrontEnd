@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
+import { connect } from 'react-redux'
+import { deletePost } from '../../actions/post'
 
 const PostItem = ({
   post: { heading, subheading, user, _id, addedDate },
   loggedUser,
+  deletePost,
 }) => {
   return (
     <div className='post bg-white p-1 my-1'>
@@ -27,7 +30,11 @@ const PostItem = ({
           Read More...
         </Link>
         {user && user._id === loggedUser._id && (
-          <button type='button' className='btn btn-danger'>
+          <button
+            type='button'
+            className='btn btn-danger'
+            onClick={(e) => deletePost(_id)}
+          >
             <i className='fas fa-times'></i>
           </button>
         )}
@@ -39,6 +46,7 @@ const PostItem = ({
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   loggedUser: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired,
 }
 
-export default PostItem
+export default connect(null, { deletePost })(PostItem)
