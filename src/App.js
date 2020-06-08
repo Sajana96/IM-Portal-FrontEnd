@@ -16,6 +16,7 @@ import Discussion from './components/discussion/Discussion'
 import Posts from './components/posts/Posts'
 import Post from './components/post/Post'
 import PostForm from './components/post/PostForm'
+import Notices from './components/notices/Notices'
 import PrivateRoute from './components/routing/PrivateRoute'
 import AlertShow from './components/layout/AlertShow'
 import setAuthToken from './utils/setAuthToken'
@@ -71,6 +72,7 @@ const App = () => {
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/post/:id' component={Post} />
               <PrivateRoute exact path='/add-post' component={PostForm} />
+              <PrivateRoute exact path='/notices' component={Notices} />
             </Switch>
           </section>
         </Fragment>
