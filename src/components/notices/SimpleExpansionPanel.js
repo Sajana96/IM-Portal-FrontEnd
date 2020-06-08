@@ -45,7 +45,7 @@ const SimpleExpansionPanel = ({ notices, loggedUser }) => {
                 </h4>
                 <Typography className={classes.secondaryHeading}>
                   {' '}
-                  {loggedUser === notice.user && (
+                  {loggedUser === notice.user._id && (
                     <button className='btn  btn-danger'>
                       <i className='fas fa-times'></i>
                     </button>
