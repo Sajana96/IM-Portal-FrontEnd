@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import SimpleExapansionPanel from './SimpleExpansionPanel'
 import { connect } from 'react-redux'
 import { getNotices } from '../../actions/notice'
 import Spinner from '../layout/Spinner'
+import NoticeForm from './NoticeForm'
 
 const Notices = ({
   getNotices,
@@ -13,6 +14,8 @@ const Notices = ({
   useEffect(() => {
     getNotices()
   }, [getNotices])
+
+  const [showForm, setShowForm] = useState(false)
   return loading ? (
     <Spinner />
   ) : (
@@ -21,6 +24,20 @@ const Notices = ({
       <p className='lead'>
         <i className='fab fa-blogger'></i> Make note!!!
       </p>
+      <div className='my-2'>
+        <button
+          type='button'
+          className='btn btn-dark'
+          onClick={(e) => setShowForm(!showForm)}
+        >
+          Add Notice
+        </button>
+      </div>
+      {showForm && (
+        <Fragment>
+          <NoticeForm user={user} />
+        </Fragment>
+      )}
       <SimpleExapansionPanel notices={notices} loggedUser={user._id} />
     </div>
   )

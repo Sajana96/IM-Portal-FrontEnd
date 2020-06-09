@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
+import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }))
 
 const SimpleExpansionPanel = ({ notices, loggedUser }) => {
@@ -30,7 +35,7 @@ const SimpleExpansionPanel = ({ notices, loggedUser }) => {
       {notices &&
         notices.length > 0 &&
         notices.map((notice) => (
-          <ExpansionPanel>
+          <ExpansionPanel key={notice._id}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls='panel1a-content'
@@ -40,15 +45,20 @@ const SimpleExpansionPanel = ({ notices, loggedUser }) => {
                 <h3>{notice.topic}</h3> To: <strong>{notice.group}</strong>
                 <br></br>
                 From: <strong>{notice.user.name}</strong>
-                <h4>
+                <br></br>
+                <strong>
                   <Moment format='MMM Do YYYY'>{notice.addedDate}</Moment>
-                </h4>
+                </strong>
                 <Typography className={classes.secondaryHeading}>
                   {' '}
                   {loggedUser === notice.user._id && (
-                    <button className='btn  btn-danger'>
-                      <i className='fas fa-times'></i>
-                    </button>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
                   )}
                 </Typography>
               </Typography>

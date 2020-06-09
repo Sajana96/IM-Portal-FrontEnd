@@ -1,4 +1,4 @@
-import { GET_NOTICES } from '../actions/types'
+import { GET_NOTICES, ADD_NOTICE } from '../actions/types'
 
 const initialState = {
   notices: [],
@@ -12,6 +12,9 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_NOTICES: {
       return { ...state, loading: false, notices: payload }
+    }
+    case ADD_NOTICE: {
+      return { ...state, loading: false, notices: [payload, ...state.notices] }
     }
     default: {
       return state
