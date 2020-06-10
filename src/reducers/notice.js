@@ -1,4 +1,4 @@
-import { GET_NOTICES, ADD_NOTICE } from '../actions/types'
+import { GET_NOTICES, ADD_NOTICE, DELETE_NOTICE } from '../actions/types'
 
 const initialState = {
   notices: [],
@@ -15,6 +15,13 @@ export default function (state = initialState, action) {
     }
     case ADD_NOTICE: {
       return { ...state, loading: false, notices: [payload, ...state.notices] }
+    }
+    case DELETE_NOTICE: {
+      return {
+        ...state,
+        loading: false,
+        notices: state.notices.filter((notice) => notice._id !== payload),
+      }
     }
     default: {
       return state

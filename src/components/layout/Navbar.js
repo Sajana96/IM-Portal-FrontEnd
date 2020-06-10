@@ -24,6 +24,12 @@ const Navbar = ({ auth, logout }) => {
         <Link to='/profiles'>Community</Link>
       </li>
       <li>
+        <li>
+          <Link to='/posts'>Blog</Link>
+        </li>
+        <li>
+          <Link to='/notices'>Notices</Link>
+        </li>
         <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
@@ -42,6 +48,9 @@ const Navbar = ({ auth, logout }) => {
 
       <li>
         <Link to='/discussions'>Discussions</Link>
+      </li>
+      <li>
+        <Link to='/notices'>Notices</Link>
       </li>
       <li>
         <Link to='/posts'>Blog</Link>

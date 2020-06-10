@@ -9,6 +9,8 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { connect } from 'react-redux'
+import { deleteNotice } from '../../actions/notice'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SimpleExpansionPanel = ({ notices, loggedUser }) => {
+const SimpleExpansionPanel = ({ notices, loggedUser, deleteNotice }) => {
   const classes = useStyles()
 
   return (
@@ -56,6 +58,7 @@ const SimpleExpansionPanel = ({ notices, loggedUser }) => {
                       variant='contained'
                       color='secondary'
                       startIcon={<DeleteIcon />}
+                      onClick={(e) => deleteNotice(notice._id)}
                     >
                       Delete
                     </Button>
@@ -74,5 +77,6 @@ const SimpleExpansionPanel = ({ notices, loggedUser }) => {
 SimpleExpansionPanel.propTypes = {
   notices: PropTypes.array.isRequired,
   loggedUser: PropTypes.string.isRequired,
+  deleteNotice: PropTypes.func.isRequired,
 }
-export default SimpleExpansionPanel
+export default connect(null, { deleteNotice })(SimpleExpansionPanel)
