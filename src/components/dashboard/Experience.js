@@ -6,7 +6,7 @@ import { deleteExperience } from '../../actions/profile'
 
 const Experience = ({ experience, deleteExperience }) => {
   if (experience.length === 0) return <Fragment></Fragment>
-  const experiences = experience.map(exp => (
+  const experiences = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
       <td className='hide-sm'>{exp.title}</td>
@@ -21,7 +21,7 @@ const Experience = ({ experience, deleteExperience }) => {
       <td>
         <button
           className='btn btn-danger'
-          onClick={e => {
+          onClick={(e) => {
             deleteExperience(exp._id)
           }}
         >
@@ -37,7 +37,7 @@ const Experience = ({ experience, deleteExperience }) => {
       <table className='table'>
         <thead>
           <tr>
-            <th>Company</th>
+            <th>Institute/Company</th>
             <th className='hide-sm'>Title</th>
             <th className='hide-sm'>Years</th>
             <th></th>
@@ -51,7 +51,7 @@ const Experience = ({ experience, deleteExperience }) => {
 
 Experience.propTypes = {
   experience: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired
+  deleteExperience: PropTypes.func.isRequired,
 }
 
 export default connect(null, { deleteExperience })(Experience)

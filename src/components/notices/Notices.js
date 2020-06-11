@@ -22,7 +22,7 @@ const Notices = ({
     <div>
       <h1 className='large text-primary'>Notices</h1>
       <p className='lead'>
-        <i className='fab fa-blogger'></i> Make note!!!
+        <i className='fas fa-sticky-note'></i> Make note!!!
       </p>
       <div className='my-2'>
         <button

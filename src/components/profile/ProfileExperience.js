@@ -13,7 +13,7 @@ const ProfileExperience = ({
         {current ? 'Current' : <Moment format='DD/MM/YYYY'>{to}</Moment>}
       </p>
       <p>
-        <strong>Position: </strong>
+        <strong>Qualification or Position: </strong>
         {title}
       </p>
       <p>
