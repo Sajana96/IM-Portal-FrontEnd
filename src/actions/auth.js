@@ -85,12 +85,9 @@ export const register = ({ name, email, password, category }) => async (
     console.log(res.data)
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: {
-        token: res.data.token,
-      },
     })
-    dispatch(loadUser())
-    dispatch(setAlert('User Registered', 'success'))
+    //dispatch(loadUser())
+    dispatch(setAlert(res.data.msg, 'success'))
   } catch (err) {
     const errors = err.response.data.errors
     console.log(errors)

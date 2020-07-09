@@ -5,6 +5,7 @@ import profile from './profile'
 import discussion from './discussion'
 import post from './post'
 import notice from './notice'
+import admin from './admin'
 
 export default combineReducers({
   alert,
@@ -13,4 +14,5 @@ export default combineReducers({
   discussion,
   post,
   notice,
+  admin,
 })
