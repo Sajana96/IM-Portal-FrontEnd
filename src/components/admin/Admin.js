@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getAllUsers } from '../../actions/admin'
+import UserList from './UserList'
 
-const Admin = ({ user, getAllUsers }) => {
+const Admin = ({ user, getAllUsers, systemUsers }) => {
   useEffect(() => {
     getAllUsers()
   }, [getAllUsers])
@@ -15,7 +16,8 @@ const Admin = ({ user, getAllUsers }) => {
 
   return user ? (
     <div>
-      <h2>Admin Route</h2>
+      <h2>Current Users</h2>
+      <UserList users={systemUsers} />
     </div>
   ) : (
     <Spinner />
@@ -29,5 +31,6 @@ Admin.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  systemUsers: state.admin.users,
 })
 export default connect(mapStateToProps, { getAllUsers })(Admin)
