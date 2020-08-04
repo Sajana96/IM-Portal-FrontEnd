@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { blockUser } from '../../actions/admin'
+import Spinner from '../layout/Spinner'
 
 const UserList = ({ users, blockUser }) => {
+  const [ready, setReady] = useState(false)
   const renderUsers = users.map((user) => (
     <tr key={user._id}>
       <td>{user.name}</td>
@@ -11,19 +13,29 @@ const UserList = ({ users, blockUser }) => {
       <td>{user.category}</td>
       <td>
         {user.access ? (
-          <button
-            className='btn btn-danger'
-            onClick={(e) => {
-              blockUser(user._id)
-            }}
-          >
-            Block
-          </button>
+          ready ? (
+            <Spinner />
+          ) : (
+            <button
+              className='btn btn-danger'
+              onClick={async (e) => {
+                setReady(true)
+                await blockUser(user._id)
+                setReady(false)
+              }}
+            >
+              Block
+            </button>
+          )
+        ) : ready ? (
+          <Spinner />
         ) : (
           <button
             className='btn btn-success'
-            onClick={(e) => {
-              blockUser(user._id)
+            onClick={async (e) => {
+              setReady(true)
+              await blockUser(user._id)
+              setReady(false)
             }}
           >
             Unblock
