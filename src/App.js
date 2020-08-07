@@ -18,6 +18,7 @@ import Post from './components/post/Post'
 import PostForm from './components/post/PostForm'
 import Notices from './components/notices/Notices'
 import Projects from './components/projects/Projects'
+import UsersTable from './components/profiles/UsersTable'
 import Admin from './components/admin/Admin'
 import PrivateRoute from './components/routing/PrivateRoute'
 import AdminRoute from './components/routing/AdminRoute'
@@ -77,6 +78,7 @@ const App = () => {
               <PrivateRoute exact path='/add-post' component={PostForm} />
               <PrivateRoute exact path='/notices' component={Notices} />
               <PrivateRoute exact path='/projects' component={Projects} />
+              <PrivateRoute exact path='/users' component={UsersTable} />
               <PrivateRoute exact path='/admin' component={Admin} />
             </Switch>
           </section>
