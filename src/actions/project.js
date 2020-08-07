@@ -5,6 +5,7 @@ import {
   SUBSCRIBE_PROJECT,
   UNSUBSCRIBE_PROJECT,
   ADD_PROJECT,
+  DELETE_PROJECT,
 } from '../actions/types'
 import { setAlert } from './alert'
 
@@ -71,6 +72,22 @@ export const addProject = (user, formData) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
     }
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: { msg: err.response.data, status: err.response.status },
+    })
+  }
+}
+export const deleteProject = (projectId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/project/${projectId}`)
+    console.log(res.data.msg)
+    dispatch({
+      type: DELETE_PROJECT,
+      payload: { id: projectId },
+    })
+    dispatch(setAlert(res.data.msg, 'danger'))
+  } catch (err) {
     dispatch({
       type: PROJECT_ERROR,
       payload: { msg: err.response.data, status: err.response.status },

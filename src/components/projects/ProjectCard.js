@@ -19,7 +19,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { connect } from 'react-redux'
-import { subscribe, unsubscribe } from '../../actions/project'
+import { subscribe, unsubscribe, deleteProject } from '../../actions/project'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +44,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ProjectCard = ({ project, owner, unsubscribe, subscribe }) => {
+const ProjectCard = ({
+  project,
+  owner,
+  unsubscribe,
+  subscribe,
+  deleteProject,
+}) => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
@@ -99,6 +105,7 @@ const ProjectCard = ({ project, owner, unsubscribe, subscribe }) => {
             variant='contained'
             color='secondary'
             startIcon={<DeleteIcon />}
+            onClick={() => deleteProject(project._id)}
           >
             Delete
           </Button>
@@ -138,9 +145,14 @@ ProjectCard.propTypes = {
   owner: PropTypes.object.isRequired,
   subscribe: PropTypes.func.isRequired,
   unsubscribe: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   owner: state.auth.user,
 })
-export default connect(mapStateToProps, { unsubscribe, subscribe })(ProjectCard)
+export default connect(mapStateToProps, {
+  unsubscribe,
+  subscribe,
+  deleteProject,
+})(ProjectCard)

@@ -4,6 +4,7 @@ import {
   SUBSCRIBE_PROJECT,
   UNSUBSCRIBE_PROJECT,
   ADD_PROJECT,
+  DELETE_PROJECT,
 } from '../actions/types'
 
 const initialState = {
@@ -50,6 +51,13 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         projects: [payload.project, ...state.projects],
+      }
+    }
+    case DELETE_PROJECT: {
+      return {
+        ...state,
+        loading: false,
+        projects: state.projects.filter((obj) => obj._id !== payload.id),
       }
     }
     default: {
