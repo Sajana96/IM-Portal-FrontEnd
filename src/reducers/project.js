@@ -1,4 +1,10 @@
-import { GET_PROJECTS, PROJECT_ERROR } from '../actions/types'
+import {
+  GET_PROJECTS,
+  PROJECT_ERROR,
+  SUBSCRIBE_PROJECT,
+  UNSUBSCRIBE_PROJECT,
+  ADD_PROJECT,
+} from '../actions/types'
 
 const initialState = {
   project: null,
@@ -16,6 +22,35 @@ export default function (state = initialState, action) {
     }
     case PROJECT_ERROR: {
       return { ...state, loading: false, error: payload }
+    }
+    case SUBSCRIBE_PROJECT: {
+      return {
+        ...state,
+        loading: false,
+        projects: state.projects.map((obj) =>
+          obj._id === payload.id
+            ? { ...obj, interested: payload.interested }
+            : obj
+        ),
+      }
+    }
+    case UNSUBSCRIBE_PROJECT: {
+      return {
+        ...state,
+        loading: false,
+        projects: state.projects.map((obj) =>
+          obj._id === payload.id
+            ? { ...obj, interested: payload.interested }
+            : obj
+        ),
+      }
+    }
+    case ADD_PROJECT: {
+      return {
+        ...state,
+        loading: false,
+        projects: [payload.project, ...state.projects],
+      }
     }
     default: {
       return state
