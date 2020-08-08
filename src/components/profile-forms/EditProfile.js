@@ -31,6 +31,7 @@ const EditProfile = ({
     youtube: '',
     linkedin: '',
     instagram: '',
+    telnumber: '',
   })
   const [displaySocial, toggleSocial] = useState(false)
   const [profileImage, setProfileImage] = useState(null)
@@ -40,6 +41,7 @@ const EditProfile = ({
     setFormData({
       school: loading || !profile.school ? '' : profile.school,
       hometown: loading || !profile.hometown ? '' : profile.hometown,
+      telnumber: loading || !profile.telnumber ? '' : profile.telnumber,
       path: loading || !profile.path ? '' : profile.path,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
       interests:
@@ -68,13 +70,18 @@ const EditProfile = ({
     youtube,
     linkedin,
     instagram,
+    telnumber,
   } = formData
-
+  const regex = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = (e) => {
     e.preventDefault()
+    console.log(regex.test(telnumber))
+    if (!regex.test(telnumber)) {
+      return setAlert('Unsupported Format of Contact Number', 'danger')
+    }
     console.log(formData)
     createProfile(formData, history, true)
   }
@@ -172,6 +179,19 @@ const EditProfile = ({
             onChange={(e) => onChange(e)}
           />
           <small className='form-text'>Could be your recent school</small>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Contact Number'
+            name='telnumber'
+            value={telnumber}
+            required
+            onChange={(e) => onChange(e)}
+          />
+          <small className='form-text'>
+            Number that others contact you ex:0777123456
+          </small>
         </div>
         <div className='form-group'>
           <input

@@ -53,6 +53,9 @@ const Navbar = ({ auth, logout }) => {
         <Link to='/projects'>Projects</Link>
       </li>
       <li>
+        <Link to='/users'>Find People</Link>
+      </li>
+      <li>
         <Link to='/notices'>Notices</Link>
       </li>
       <li>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ProfileTop = ({
-  profile: { user, path, company, skills, hometown, social },
+  profile: { user, path, company, skills, hometown, social, telnumber },
 }) => {
   return (
     <div
@@ -16,6 +16,7 @@ const ProfileTop = ({
       <p className='lead'>Following {path}</p>
       {company ? <p className='lead'>Works at {company}</p> : ''}
       {hometown && <p>Lives in {hometown}</p>}
+      {telnumber && <p>Contact: {telnumber}</p>}
       <div className='icons my-1'>
         {social && social.facebook && (
           <a href={social.facebook} target='_blank' rel='noopener noreferrer'>

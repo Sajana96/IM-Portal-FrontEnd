@@ -1,30 +1,57 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MaterialTable from 'material-table'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import Spinner from '../layout/Spinner'
+import { getAllProfiles } from '../../actions/profile'
+import { useHistory } from 'react-router-dom'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
-const UsersTable = () => {
+const UsersTable = ({ getAllProfiles, profile: { profiles, loading } }) => {
+  const history = useHistory()
   const [state, setState] = React.useState({
     columns: [
       { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-    ],
-    data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
+      { title: 'Level', field: 'category' },
+      { title: 'Contact info', field: 'telnumber' },
     ],
   })
+  useEffect(() => {
+    getAllProfiles()
+  }, [])
 
-  return (
+  console.log(state)
+  return loading ? (
+    <Spinner />
+  ) : (
     <MaterialTable
-      title='Editable Example'
+      title='Find Anyone'
       columns={state.columns}
-      data={state.data}
+      data={profiles.map((obj) => {
+        return {
+          id: obj.user._id,
+          name: obj.user.name,
+          category: obj.user.category,
+          telnumber: obj.telnumber ? obj.telnumber : 'No Number',
+        }
+      })}
+      actions={[
+        {
+          icon: AccountCircleIcon,
+          tooltip: 'Go to Profile',
+          onClick: (event, rowData) => history.push(`/profile/${rowData.id}`),
+        },
+      ]}
     />
   )
 }
-export default UsersTable
+
+UsersTable.propTypes = {
+  getAllProfiles: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+})
+export default connect(mapStateToProps, { getAllProfiles })(UsersTable)
