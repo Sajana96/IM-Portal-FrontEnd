@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getAllUsers } from '../../actions/admin'
@@ -17,6 +17,9 @@ const Admin = ({ user, getAllUsers, systemUsers }) => {
   return user ? (
     <div>
       <h2>Current Users</h2>
+      <Link to='/admin/reports' className='btn btn-dark'>
+        <i className='far fa-chart-bar'></i> Go to Report Generation
+      </Link>
       <UserList users={systemUsers} />
     </div>
   ) : (

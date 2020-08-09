@@ -11,6 +11,7 @@ const UserList = ({ users, blockUser }) => {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>{user.category}</td>
+      <td>{user.access ? 'Authorized' : 'Blocked'}</td>
       <td>
         {user.access ? (
           ready ? (
@@ -49,10 +50,11 @@ const UserList = ({ users, blockUser }) => {
       <table className='table'>
         <thead>
           <tr>
-            <th>Name</th>
+            <th className='hide-sm'>Name</th>
             <th className='hide-sm'>E-mail</th>
             <th className='hide-sm'>Category</th>
             <th className='hide-sm'>Status</th>
+            <th className='hide-sm'>Action</th>
           </tr>
         </thead>
         <tbody>{renderUsers}</tbody>

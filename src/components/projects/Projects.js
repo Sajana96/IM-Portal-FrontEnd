@@ -18,7 +18,7 @@ const Projects = ({ getProjects, project: { projects, loading } }) => {
       <h1 className='large text-primary'>Projects</h1>
       <hr></hr>
       <ProjectForm />
-      <Grid container justify='center' spacing={5}>
+      <Grid container justify='space-around' spacing={5}>
         {projects &&
           projects.length !== 0 &&
           projects.map((eachProject) => (

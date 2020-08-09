@@ -21,6 +21,7 @@ import Projects from './components/projects/Projects'
 import UsersTable from './components/profiles/UsersTable'
 import Admin from './components/admin/Admin'
 import PrivateRoute from './components/routing/PrivateRoute'
+import Reports from './components/admin/Reports'
 import AdminRoute from './components/routing/AdminRoute'
 import AlertShow from './components/layout/AlertShow'
 import setAuthToken from './utils/setAuthToken'
@@ -80,6 +81,7 @@ const App = () => {
               <PrivateRoute exact path='/projects' component={Projects} />
               <PrivateRoute exact path='/users' component={UsersTable} />
               <PrivateRoute exact path='/admin' component={Admin} />
+              <PrivateRoute exact path='/admin/reports' component={Reports} />
             </Switch>
           </section>
         </Fragment>
