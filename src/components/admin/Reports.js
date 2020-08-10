@@ -194,6 +194,7 @@ const Reports = ({ user }) => {
   }
   return user ? (
     <div>
+      <h1 className='large text-primary'>IM Portal Usage Insights</h1>
       <h1>Overview</h1>
       <form className='form my-1' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
