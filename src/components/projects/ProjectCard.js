@@ -124,7 +124,7 @@ const ProjectCard = ({
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          <strong>Interested</strong>
+          <strong>Collaborators</strong>
           <ul>
             {project &&
               project.interested.map((obj) => (
