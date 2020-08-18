@@ -7,10 +7,12 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import Spinner from '../layout/Spinner'
 import { Redirect } from 'react-router-dom'
+
 var CanvasJSChart = CanvasJSReact.CanvasJSChart
 var CanvasJS = CanvasJSReact.CanvasJS
 
 const Reports = ({ user }) => {
+  const [year, setYear] = React.useState('2020-05-31')
   const [date, setDate] = React.useState({
     to: '2020-05-31',
     from: '2020-01-01',
@@ -126,8 +128,9 @@ const Reports = ({ user }) => {
   const getannualReport = async () => {
     setAnnualData({ ...annualData, loading: true })
     try {
-      const res = await axios.get('/api/admin/report/annual')
+      const res = await axios.get(`/api/admin/report/${year}`)
       console.log(res.data)
+      console.log(new Date(year).getFullYear())
       setAnnualData({
         ...annualData,
         loading: false,
@@ -235,9 +238,20 @@ const Reports = ({ user }) => {
       {data.loading ? <Spinner /> : <CanvasJSChart options={options} />}
       <div style={{ padding: 60 }}></div>
       <button className='btn btn-dark' onClick={(e) => getannualReport()}>
-        <i className='far fa-chart-bar'></i>Get Annual Overview of{' '}
-        {new Date().getFullYear()}
+        <i className='far fa-chart-bar'></i>Get Annual Overview of year{' '}
+        <strong> {new Date(year).getFullYear()}</strong>
       </button>
+      <TextField
+        id='date'
+        type='date'
+        name='annual'
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+
       {annualData.loading ? (
         <Spinner />
       ) : (
