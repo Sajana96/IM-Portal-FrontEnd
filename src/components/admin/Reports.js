@@ -237,10 +237,6 @@ const Reports = ({ user }) => {
       </form>
       {data.loading ? <Spinner /> : <CanvasJSChart options={options} />}
       <div style={{ padding: 60 }}></div>
-      <button className='btn btn-dark' onClick={(e) => getannualReport()}>
-        <i className='far fa-chart-bar'></i>Get Annual Overview of year{' '}
-        <strong> {new Date(year).getFullYear()}</strong>
-      </button>
       <TextField
         id='date'
         type='date'
@@ -251,7 +247,20 @@ const Reports = ({ user }) => {
           shrink: true,
         }}
       />
-
+      <button className='btn btn-dark' onClick={(e) => getannualReport()}>
+        <i className='far fa-chart-bar'></i>Get Annual Overview of year{' '}
+        <strong> {new Date(year).getFullYear()}</strong>
+      </button>
+      <a
+        className='btn btn-dark'
+        href={`localhost:5000/api/admin/report/pdf/${year}`}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <i className='far fa-chart-bar'></i>Download as a PDF for Year{' '}
+        <strong> {new Date(year).getFullYear()}</strong>
+      </a>
+      <div style={{ padding: 40 }}></div>
       {annualData.loading ? (
         <Spinner />
       ) : (
