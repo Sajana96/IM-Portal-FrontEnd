@@ -25,7 +25,7 @@ const UserList = ({ users, blockUser }) => {
                 setReady(false)
               }}
             >
-              Block
+              Block Access
             </button>
           )
         ) : ready ? (
@@ -39,7 +39,7 @@ const UserList = ({ users, blockUser }) => {
               setReady(false)
             }}
           >
-            Unblock
+            Grant Access
           </button>
         )}
       </td>
